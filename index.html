@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Truong Van Tinh | Enterprise Solution Architect & High-Scale Systems Cockpit</title>
-  <meta name="description" content="Mission-Critical Distributed Systems Cockpit: .NET 8, 5,000+ RPS, Dapper, Redis Lua, Chaos Resilience, Hybrid RAG by Truong Van Tinh.">
+  <title>Truong Van Tinh | Solution Architect & High-Concurrency Systems</title>
+  <meta name="description" content="Portfolio of Truong Van Tinh - Solution Architect specializing in .NET 8, 5,000+ RPS high-concurrency distributed systems, Redis Lua, and Enterprise Applied AI.">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -21,12 +22,19 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
+            mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            slate: {
-              925: '#0b1120',
-              950: '#030712'
+            cyber: {
+              dark: '#030712',
+              card: '#0B0F19',
+              border: '#1F2937',
+              cyan: '#06b6d4',
+              teal: '#14b8a6',
+              emerald: '#10b981',
+              rose: '#f43f5e',
+              amber: '#f59e0b',
+              purple: '#8b5cf6'
             }
           }
         }
@@ -35,25 +43,32 @@
   </script>
 
   <style>
-    body { background-color: #030712; color: #f3f4f6; }
+    /* Custom animations & glow */
     .bg-grid-cyber {
-      background-size: 36px 36px;
+      background-size: 32px 32px;
       background-image: 
-        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 1px, transparent 1px),
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     }
-    .glow-cyan { box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.45); }
-    .glow-emerald { box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.45); }
-    .glow-purple { box-shadow: 0 0 30px -5px rgba(168, 85, 247, 0.45); }
-    .glow-rose { box-shadow: 0 0 30px -5px rgba(244, 63, 94, 0.45); }
-    .glow-amber { box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.45); }
+    .glow-cyan { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.35); }
+    .glow-rose { box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.35); }
+    .glow-emerald { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.35); }
+    .glow-amber { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.35); }
+    .glow-purple { box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.35); }
+    
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.08); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring { animation: pulseRing 2s infinite ease-in-out; }
 
     @keyframes laserScan {
-      0% { top: 0%; opacity: 0.9; }
+      0% { top: 0%; opacity: 0.2; }
+      50% { opacity: 1; }
       100% { top: 100%; opacity: 0.2; }
     }
-    .laser-line { animation: laserScan 1.6s infinite ease-in-out alternate; }
+    .laser-line { animation: laserScan 1.8s infinite ease-in-out alternate; }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -64,7 +79,9 @@
 </head>
 <body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black bg-grid-cyber">
 
-  <!-- TOP COMPACT TELEMETRY HUD -->
+  <!-- ========================================================================= -->
+  <!-- TOP TELEMETRY HUD -->
+  <!-- ========================================================================= -->
   <aside class="border-b border-slate-800/80 bg-slate-950/95 sticky top-0 z-50 text-[11px] font-mono backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 h-10 flex items-center justify-between gap-2">
       <!-- Live Status Badges -->
@@ -81,7 +98,7 @@
         <span class="text-emerald-400 font-bold hidden sm:inline">&lt; 42ms p99</span>
       </div>
 
-      <!-- Controls: Clock + Zalo Trigger + Lang Switcher -->
+      <!-- Controls: Zalo Trigger + Rate + Lang Switcher -->
       <div class="flex items-center space-x-1.5 sm:space-x-3 font-semibold shrink-0">
         <button onclick="openZaloModal()" class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:brightness-110 text-white px-2.5 py-0.5 rounded-full font-bold flex items-center space-x-1 text-[10px] transition shadow-md shadow-blue-500/20 whitespace-nowrap">
           <span>💬 Zalo QR</span>
@@ -98,7 +115,9 @@
     </div>
   </aside>
 
+  <!-- ========================================================================= -->
   <!-- COMPACT HEADER BAR -->
+  <!-- ========================================================================= -->
   <header class="border-b border-slate-800/60 bg-slate-900/70 backdrop-blur-md sticky top-10 z-40">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2">
       <div class="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
@@ -111,7 +130,7 @@
           <div class="flex items-center space-x-1.5 sm:space-x-2">
             <span class="font-extrabold text-sm sm:text-base tracking-tight text-white whitespace-nowrap">TRUONG VAN TINH</span>
             <span class="text-[8px] sm:text-[9px] bg-cyan-950 text-cyan-300 px-1.5 sm:px-2 py-0.5 rounded-full border border-cyan-500/30 font-mono font-bold whitespace-nowrap">
-              ARCHITECT
+              SOLUTION ARCHITECT
             </span>
           </div>
         </div>
@@ -132,68 +151,73 @@
     </div>
   </header>
 
+  <!-- ========================================================================= -->
   <!-- HERO VALUE STATEMENT: PURE KEYWORDS & HARD METRICS -->
+  <!-- ========================================================================= -->
   <section class="max-w-7xl mx-auto px-3 sm:px-6 pt-5 pb-3 w-full">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
       <div>
         <div class="inline-flex items-center space-x-1.5 text-cyan-400 text-[10px] font-mono tracking-wider uppercase mb-1">
           <span>⚡ CON CUNG CORE SYSTEMS • HIGH-CONCURRENCY BACKEND • APPLIED AI</span>
         </div>
-        <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
-          High-Throughput Distributed Systems for <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">700+ Retail Stores</span>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
+          High–Throughput Distributed Systems for <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">700+ Retail Stores</span>
         </h1>
-        <p class="text-slate-400 text-xs font-mono mt-0.5" data-i18n="hero_stack">
+        <p class="text-xs sm:text-sm text-slate-400 font-mono mt-1" data-i18n="hero_stack">
           Stack: .NET 8 • C# • Clean Architecture • Dapper • Redis Lua • Keycloak • SQL Server 2022 • Qdrant RAG • Docker
         </p>
       </div>
 
+      <!-- Call to Action Buttons -->
       <div class="flex items-center space-x-2 shrink-0">
         <button onclick="openZaloModal()" class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-extrabold px-3 py-1.5 rounded-lg text-xs font-mono shadow-lg shadow-blue-500/20 transition hover:brightness-110 flex items-center space-x-1.5">
           <span>💬 <span data-i18n="btn_zalo_chat">CHAT ZALO / CALL</span></span>
         </button>
-        <a href="#quick-dossier" class="bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs font-mono shadow-lg shadow-cyan-500/20 transition hover:brightness-110">
-          <span data-i18n="btn_hire">GET CVs (35–40H/WK)</span>
+        <a href="#quick-dossier" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs font-mono shadow-lg shadow-emerald-500/20 transition flex items-center space-x-1">
+          <span>🚀 <span data-i18n="btn_hire">GET CVs (35-40H/WK)</span></span>
         </a>
       </div>
     </div>
 
-    <!-- 6 KEYWORD-DRIVEN KPI CARDS -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 pt-2.5">
-      <div class="bg-slate-950 border border-cyan-500/30 p-2.5 rounded-xl glow-cyan">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_1_lbl">PEAK CONCURRENCY</p>
-        <p class="text-lg sm:text-xl font-extrabold text-cyan-400 mt-0.5">5,000+ RPS</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_1_sub">Flash-sale stress</p>
+    <!-- 6 Hard Metric Cards (No scrolling needed, instant impact) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-3 text-left font-mono">
+      
+      <div class="bg-slate-950/80 border border-cyan-500/30 p-2.5 rounded-xl hover:border-cyan-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_1_lbl">PEAK CONCURRENCY</span>
+        <strong class="text-base sm:text-lg text-cyan-400 font-extrabold block">5,000+ RPS</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_1_sub">Flash-sale stress</span>
       </div>
 
-      <div class="bg-slate-950 border border-emerald-500/30 p-2.5 rounded-xl glow-emerald">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_2_lbl">p99 LATENCY SLA</p>
-        <p class="text-lg sm:text-xl font-extrabold text-emerald-400 mt-0.5">&lt; 42ms</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_2_sub">Slashed from 1,200ms</p>
+      <div class="bg-slate-950/80 border border-emerald-500/30 p-2.5 rounded-xl hover:border-emerald-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_2_lbl">p99 LATENCY SLA</span>
+        <strong class="text-base sm:text-lg text-emerald-400 font-extrabold block">&lt; 42ms</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_2_sub">Slashed from 1,200ms</span>
       </div>
 
-      <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_3_lbl">DOUBLE-SPENDING</p>
-        <p class="text-lg sm:text-xl font-extrabold text-white mt-0.5">0.000%</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_3_sub">Zero race conditions</p>
+      <div class="bg-slate-950/80 border border-cyan-500/30 p-2.5 rounded-xl hover:border-cyan-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_3_lbl">DOUBLE-SPENDING</span>
+        <strong class="text-base sm:text-lg text-cyan-300 font-extrabold block">0.000%</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_3_sub">Zero race conditions</span>
       </div>
 
-      <div class="bg-slate-950 border border-purple-500/30 p-2.5 rounded-xl glow-purple">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_4_lbl">RETAIL NETWORK</p>
-        <p class="text-lg sm:text-xl font-extrabold text-purple-400 mt-0.5">700+ Stores</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_4_sub">Con Cung hypermarkets</p>
+      <div class="bg-slate-950/80 border border-purple-500/30 p-2.5 rounded-xl hover:border-purple-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_4_lbl">RETAIL NETWORK</span>
+        <strong class="text-base sm:text-lg text-purple-400 font-extrabold block">700+ Stores</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_4_sub">Con Cung hypermarkets</span>
       </div>
 
-      <div class="bg-slate-950 border border-amber-500/30 p-2.5 rounded-xl">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_5_lbl">RAG GROUNDEDNESS</p>
-        <p class="text-lg sm:text-xl font-extrabold text-amber-400 mt-0.5">99.2%</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_5_sub">Zero hallucination</p>
+      <div class="bg-slate-950/80 border border-amber-500/30 p-2.5 rounded-xl hover:border-amber-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_5_lbl">RAG GROUNDEDNESS</span>
+        <strong class="text-base sm:text-lg text-amber-300 font-extrabold block">99.2%</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_5_sub">Zero hallucination</span>
       </div>
 
-      <div class="bg-slate-950 border border-rose-500/30 p-2.5 rounded-xl glow-rose">
-        <p class="text-[9px] font-mono uppercase text-slate-400" data-i18n="kpi_6_lbl">CHAOS MTTR</p>
-        <p class="text-lg sm:text-xl font-extrabold text-rose-400 mt-0.5">&lt; 1.5s</p>
-        <p class="text-[9px] text-slate-500 font-mono" data-i18n="kpi_6_sub">Circuit auto-failover</p>
+      <div class="bg-slate-950/80 border border-rose-500/30 p-2.5 rounded-xl hover:border-rose-400 transition">
+        <span class="text-[9px] text-slate-400 uppercase tracking-wider block" data-i18n="kpi_6_lbl">CHAOS MTTR</span>
+        <strong class="text-base sm:text-lg text-rose-400 font-extrabold block">&lt; 1.5s</strong>
+        <span class="text-[9px] text-slate-500" data-i18n="kpi_6_sub">Circuit auto-failover</span>
       </div>
+
     </div>
   </section>
 
@@ -267,18 +291,20 @@
       </div>
 
       <!-- COCKPIT CONTENT VIEWPORT -->
-      <div class="p-4 sm:p-5 min-h-[460px]">
+      <div class="p-4 sm:p-5 min-h-[520px]">
 
-        <!-- VIEW 1: CONCURRENCY SIMULATOR -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 1: CONCURRENCY SIMULATOR & RACE CONDITION ARENA -->
+        <!-- ========================================================================= -->
         <div id="view-concurrency" class="space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
-                <span class="text-cyan-400">⚡ 5,000+ RPS FLASH-SALE SIMULATOR</span>
-                <span class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">C# .NET 8</span>
+                <span class="text-cyan-400">⚡ 5,000+ RPS FLASH-SALE ENGINE & RACE CONDITION ARENA</span>
+                <span class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">C# .NET 8 • DAPPER • REDIS</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="concurrency_sub">
-                Dapper + Redis Lua Atomic Scripts vs Naive EF Core Table Locks
+                Dapper + Redis Lua Atomic Decrement vs Naive EF Core Table Locks
               </p>
             </div>
 
@@ -294,13 +320,17 @@
             </div>
           </div>
 
+          <!-- Rolling Live Latency Waveform + Gauge -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
             <div class="lg:col-span-8 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
               <div class="flex justify-between items-center mb-1 text-[11px] font-mono text-slate-400">
-                <span>LATENCY SPECTRUM (p50 / p90 / p95 / p99 in ms)</span>
+                <span class="flex items-center space-x-1.5">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                  <span>REAL-TIME LATENCY SPECTRUM (p50 / p90 / p95 / p99 in ms)</span>
+                </span>
                 <span id="p99Badge" class="text-emerald-400 font-bold">p99 = 42ms (PASS)</span>
               </div>
-              <div class="h-52">
+              <div class="h-48 sm:h-52">
                 <canvas id="latencyChart"></canvas>
               </div>
             </div>
@@ -322,64 +352,186 @@
                 </div>
               </div>
 
-              <button onclick="injectRaceConditionAttack()" id="attackBtn" class="w-full bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 py-2 rounded-xl font-mono text-xs font-bold transition flex items-center justify-center space-x-1.5">
-                <span>⚡ <span data-i18n="btn_inject_1000">INJECT 1,000 THREADS COLLISION</span></span>
+              <button onclick="runRaceConditionArena()" id="attackBtn" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-950 font-black py-2 rounded-xl font-mono text-xs shadow-lg shadow-cyan-500/20 transition flex items-center justify-center space-x-1.5">
+                <span>⚡ <span data-i18n="btn_inject_1000">START 5-THREAD COLLISION ARENA</span></span>
               </button>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 text-[11px] font-mono">
-            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-rose-900/40">
-              <span class="text-rose-400 font-bold block mb-1">❌ NAIVE EF CORE (1,200ms Tail Latency • High GC)</span>
-              <code class="text-slate-400 text-[10px]">_db.Vouchers.Include(v =&gt; v.Redemptions); // Table Lock Bottleneck</code>
+          <!-- Interactive Visual Race Track (Thread Collision Visualizer) -->
+          <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl space-y-2 font-mono">
+            <div class="flex justify-between items-center text-xs pb-1 border-b border-slate-800/80">
+              <span class="text-slate-300 font-bold flex items-center space-x-1.5">
+                <span>🏁 CONCURRENT RACE TRACK:</span>
+                <span class="text-cyan-400">VOUCHER #TET_50K (QUOTA: 1)</span>
+              </span>
+              <span id="arenaStatus" class="text-slate-500 text-[11px]">Ready to fire collision</span>
             </div>
-            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-emerald-900/40">
-              <span class="text-emerald-400 font-bold block mb-1">✔️ DAPPER + REDIS LUA (&lt; 4ms Hot-Path • Zero GC)</span>
-              <code class="text-slate-300 text-[10px]">if (await _redis.AtomicDecrAsync(code) &lt;= 0) Reject(); // In-Memory Guard</code>
+
+            <!-- 5 Thread Lanes -->
+            <div class="space-y-1.5 text-[11px]">
+              <div class="flex items-center space-x-2">
+                <span class="w-16 text-slate-400 text-[10px]">Thread-01:</span>
+                <div class="flex-1 bg-slate-900 h-5 rounded overflow-hidden relative border border-slate-800">
+                  <div id="lane-1" class="h-full bg-cyan-500 transition-all duration-500 flex items-center px-2 text-[9px] font-bold text-slate-950" style="width: 0%;">WAITING</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-16 text-slate-400 text-[10px]">Thread-02:</span>
+                <div class="flex-1 bg-slate-900 h-5 rounded overflow-hidden relative border border-slate-800">
+                  <div id="lane-2" class="h-full bg-cyan-500 transition-all duration-500 flex items-center px-2 text-[9px] font-bold text-slate-950" style="width: 0%;">WAITING</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-16 text-slate-400 text-[10px]">Thread-03:</span>
+                <div class="flex-1 bg-slate-900 h-5 rounded overflow-hidden relative border border-slate-800">
+                  <div id="lane-3" class="h-full bg-cyan-500 transition-all duration-500 flex items-center px-2 text-[9px] font-bold text-slate-950" style="width: 0%;">WAITING</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-16 text-slate-400 text-[10px]">Thread-04:</span>
+                <div class="flex-1 bg-slate-900 h-5 rounded overflow-hidden relative border border-slate-800">
+                  <div id="lane-4" class="h-full bg-cyan-500 transition-all duration-500 flex items-center px-2 text-[9px] font-bold text-slate-950" style="width: 0%;">WAITING</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-16 text-slate-400 text-[10px]">Thread-05:</span>
+                <div class="flex-1 bg-slate-900 h-5 rounded overflow-hidden relative border border-slate-800">
+                  <div id="lane-5" class="h-full bg-cyan-500 transition-all duration-500 flex items-center px-2 text-[9px] font-bold text-slate-950" style="width: 0%;">WAITING</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- In-Cockpit Telemetry Toast (No ugly browser alert popups!) -->
+            <div id="concurrencyTelemetryToast" class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px] text-slate-300">
+              Click <strong>"START 5-THREAD COLLISION ARENA"</strong> to watch threads race to claim the final remaining voucher.
+            </div>
+          </div>
+
+          <!-- Code Inspection Tabs -->
+          <div class="bg-slate-900/80 rounded-xl border border-slate-800 overflow-hidden font-mono text-xs">
+            <div class="flex items-center justify-between bg-slate-950 px-3 py-1.5 border-b border-slate-800 text-[11px]">
+              <div class="flex space-x-2">
+                <button onclick="setArchCodeTab('lua')" id="btn-code-lua" class="px-2 py-0.5 rounded font-bold text-cyan-400 bg-cyan-950 border border-cyan-800">AtomicVoucherDecr.lua</button>
+                <button onclick="setArchCodeTab('dapper')" id="btn-code-dapper" class="px-2 py-0.5 rounded font-bold text-slate-400 hover:text-white">VoucherService.cs (Dapper)</button>
+                <button onclick="setArchCodeTab('efcore')" id="btn-code-efcore" class="px-2 py-0.5 rounded font-bold text-slate-400 hover:text-white">NaiveEfCore.cs (Bad Pattern)</button>
+              </div>
+              <span class="text-slate-500 text-[10px]">PRODUCTION IMPLEMENTATION</span>
+            </div>
+            
+            <div class="p-3 text-[11px] leading-relaxed overflow-x-auto text-slate-300 max-h-48">
+              <pre id="codeViewContent" class="text-slate-300"><code>-- Redis Atomic Decrement Guard (Executed in Redis Engine in < 1ms)
+-- KEYS[1]: voucher_key (e.g. voucher:quota:TET2026)
+local current = redis.call('GET', KEYS[1])
+if not current or tonumber(current) &lt;= 0 then
+    return 0 -- Immediate in-memory fast-reject; shields SQL Server from 90% bad traffic!
+end
+return redis.call('DECR', KEYS[1]) -- Guaranteed atomic single-hop decrement!</code></pre>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 2: CHAOS & CIRCUIT BREAKER -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 2: RESILIENT PARTNER GATEWAY & CHAOS MONKEY (HIGH-TECH OVERHAUL) -->
+        <!-- ========================================================================= -->
         <div id="view-chaos" class="space-y-4 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
                 <span class="text-rose-400">🛡️ RESILIENT PARTNER GATEWAY & CHAOS MONKEY</span>
-                <span class="text-[10px] bg-rose-950 text-rose-300 px-2 py-0.5 rounded border border-rose-800">POLLY + RABBITMQ</span>
+                <span class="text-[10px] bg-rose-950 text-rose-300 px-2 py-0.5 rounded border border-rose-800">POLLY v8 • RABBITMQ QUORUM DLQ</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="chaos_sub">
                 Zero-Loss Transaction Pipeline: Fast-Fail Circuit Breaker + Idempotency Replay
               </p>
             </div>
             <div class="flex items-center space-x-2 font-mono text-xs">
-              <span class="text-slate-400">CIRCUIT:</span>
-              <span id="circuitStateBadge" class="bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-0.5 rounded-full font-bold">
-                CLOSED (HEALTHY)
+              <span class="text-slate-400">CIRCUIT STATE:</span>
+              <span id="circuitStateBadge" class="bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-bold flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>CLOSED (HEALTHY)</span>
               </span>
             </div>
           </div>
 
+          <!-- Interactive Circuit Breaker State Machine Visualizer (SVG Node Mesh) -->
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 relative overflow-hidden font-mono">
+            <div class="flex justify-between items-center text-xs pb-2 mb-3 border-b border-slate-800 text-slate-400">
+              <span class="text-white font-bold flex items-center space-x-1.5">
+                <span>⚡ CIRCUIT BREAKER STATE MACHINE (POLLY v8)</span>
+              </span>
+              <span id="circuitTimer" class="text-cyan-400 font-bold">Probing Window: Continuous</span>
+            </div>
+
+            <!-- Visual 3-State Nodes -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+              
+              <!-- State 1: CLOSED -->
+              <div id="stateNodeClosed" class="p-3.5 rounded-xl border border-emerald-500/50 bg-emerald-950/20 glow-emerald transition-all">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-sm">
+                  ✓
+                </div>
+                <strong class="text-emerald-400 block text-xs">CLOSED (NORMAL)</strong>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">100% Traffic routed to Partner</span>
+                <span class="text-[9px] text-emerald-300 block mt-1">Fail Ratio &lt; 50%</span>
+              </div>
+
+              <!-- State 2: OPEN -->
+              <div id="stateNodeOpen" class="p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40">
+                <div class="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-sm">
+                  ✕
+                </div>
+                <strong class="text-rose-400 block text-xs">OPEN (ISOLATED)</strong>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Fast-Fail &lt; 1ms ➔ RabbitMQ DLQ</span>
+                <span class="text-[9px] text-rose-300 block mt-1">SleepWindow: 5.0s</span>
+              </div>
+
+              <!-- State 3: HALF-OPEN -->
+              <div id="stateNodeHalfOpen" class="p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40">
+                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-sm">
+                  ?
+                </div>
+                <strong class="text-amber-400 block text-xs">HALF-OPEN (PROBING)</strong>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Canary probes Partner health</span>
+                <span class="text-[9px] text-amber-300 block mt-1">Single Trial Request</span>
+              </div>
+
+            </div>
+
+            <!-- Animated Request Packet Flow Bar -->
+            <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-2">
+              <div class="flex items-center space-x-2">
+                <span>INCOMING STREAM:</span>
+                <span id="packetStreamStatus" class="text-cyan-400 font-bold">120 req/s ➔ [Polly Pipeline] ➔ [Partner Gateway: 200 OK]</span>
+              </div>
+              <div class="flex items-center space-x-3 text-[11px]">
+                <span>DLQ BUFFER: <strong id="queueCount" class="text-cyan-400">0 messages</strong></span>
+                <span>RETRIES: <strong id="retryCount" class="text-amber-400">0 attempts</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chaos Injection Action Panel -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <button onclick="triggerChaos('timeout')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800 p-3 rounded-xl text-left transition group">
+            <button onclick="triggerChaos('timeout')" class="bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-rose-500/50 p-3 rounded-xl text-left transition group">
               <div class="flex justify-between items-center text-xs font-mono font-bold text-rose-400 mb-1">
-                <span>⚡ CHAOS 1: TIMEOUT</span>
+                <span>⚡ CHAOS 1: TIMEOUT 40%</span>
                 <span class="text-[10px] text-slate-500 group-hover:text-rose-400">Trigger</span>
               </div>
               <p class="text-xs font-bold text-white" data-i18n="chaos_btn_1_title">Simulate 40% Partner Timeout</p>
               <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="chaos_btn_1_sub">Trips Polly Circuit Breaker OPEN; buffers to RabbitMQ DLQ.</p>
             </button>
 
-            <button onclick="triggerChaos('replay')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800 p-3 rounded-xl text-left transition group">
+            <button onclick="triggerChaos('replay')" class="bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/50 p-3 rounded-xl text-left transition group">
               <div class="flex justify-between items-center text-xs font-mono font-bold text-cyan-400 mb-1">
-                <span>⚡ CHAOS 2: REPLAY</span>
+                <span>⚡ CHAOS 2: REPLAY STORM</span>
                 <span class="text-[10px] text-slate-500 group-hover:text-cyan-400">Trigger</span>
               </div>
               <p class="text-xs font-bold text-white" data-i18n="chaos_btn_2_title">Simulate Replay Attack Storm</p>
               <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="chaos_btn_2_sub">Validates 202 Accepted replay without duplicate charging.</p>
             </button>
 
-            <button onclick="triggerChaos('heal')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800 p-3 rounded-xl text-left transition group">
+            <button onclick="triggerChaos('heal')" class="bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 p-3 rounded-xl text-left transition group">
               <div class="flex justify-between items-center text-xs font-mono font-bold text-emerald-400 mb-1">
                 <span>🔄 RESET & HEAL</span>
                 <span class="text-[10px] text-slate-500 group-hover:text-emerald-400">Execute</span>
@@ -389,94 +541,167 @@
             </button>
           </div>
 
-          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 font-mono text-xs">
-            <div class="flex justify-between items-center pb-1.5 mb-1.5 border-b border-slate-800 text-[10px] text-slate-400">
-              <span>TELEMETRY STREAM (:5001)</span>
-              <span>BUFFER: <strong id="queueCount" class="text-cyan-400">0 messages in RabbitMQ</strong></span>
+          <!-- Telemetry Stream + Code Viewer -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+            <div class="lg:col-span-6 bg-slate-900/60 p-3 rounded-xl border border-slate-800 font-mono text-xs flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-center pb-1.5 mb-1.5 border-b border-slate-800 text-[10px] text-slate-400">
+                  <span class="flex items-center space-x-1">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span>LIVE TELEMETRY STREAM (:5001)</span>
+                  </span>
+                  <span class="text-emerald-400 font-bold">100% Zero-Loss</span>
+                </div>
+                <div id="chaosConsole" class="space-y-1 h-36 overflow-y-auto text-slate-300 text-[11px] pr-1">
+                  <div class="text-slate-500">[INIT] Resilient Partner Integration Gateway listening. Polly circuit primed.</div>
+                  <div class="text-emerald-400">[INFO] Synthetic heartbeat: 200 OK (latency: 18ms). Zero queued backlog.</div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex justify-between">
+                <span>Outbox Pattern: <strong>Enabled</strong></span>
+                <span>RabbitMQ Quorum: <strong>Synchronized</strong></span>
+              </div>
             </div>
-            <div id="chaosConsole" class="space-y-1 h-32 overflow-y-auto text-slate-300 text-[11px]">
-              <div class="text-slate-500">[INIT] Resilient Partner Integration Gateway listening. Polly circuit primed.</div>
-              <div class="text-emerald-400">[INFO] Synthetic heartbeat: 200 OK (latency: 18ms). Zero queued backlog.</div>
+
+            <div class="lg:col-span-6 bg-slate-900/80 rounded-xl border border-slate-800 p-3 font-mono text-xs overflow-hidden">
+              <div class="flex justify-between items-center pb-1.5 mb-1.5 border-b border-slate-800 text-[10px]">
+                <span class="text-cyan-400 font-bold">Polly v8 ResiliencePipelineBuilder.cs</span>
+                <span class="text-slate-500">.NET 8</span>
+              </div>
+              <pre class="text-[10.5px] leading-relaxed text-slate-300 overflow-x-auto h-36"><code>var pipeline = new ResiliencePipelineBuilder&lt;HttpResponseMessage&gt;()
+    .AddTimeout(TimeSpan.FromMilliseconds(800))
+    .AddRetry(new RetryStrategyOptions&lt;HttpResponseMessage&gt; {
+        MaxRetryAttempts = 3,
+        BackoffType = DelayBackoffType.ExponentialWithJitter,
+        Delay = TimeSpan.FromMilliseconds(50)
+    })
+    .AddCircuitBreaker(new CircuitBreakerStrategyOptions&lt;HttpResponseMessage&gt; {
+        FailureRatio = 0.5, // Trip if &gt; 50% fails
+        SamplingDuration = TimeSpan.FromSeconds(10),
+        MinimumThroughput = 8,
+        BreakDuration = TimeSpan.FromSeconds(5) // Fast 202 Fallback!
+    })
+    .Build();</code></pre>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 3: LIVE SYSTEM TOPOLOGY STREAM (WOW FACTOR ANIMATED CANVAS) -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 3: LIVE SYSTEM TOPOLOGY STREAM (INTERACTIVE ARCHITECTURE MESH) -->
+        <!-- ========================================================================= -->
         <div id="view-topology" class="space-y-4 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
-                <span class="text-cyan-400">🌐 LIVE ARCHITECTURAL TOPOLOGY & PACKET STREAM</span>
-                <span class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">ANIMATED MESH</span>
+                <span class="text-cyan-400">🌐 LIVE ARCHITECTURAL TOPOLOGY & DISTRIBUTED MESH</span>
+                <span class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">INTERACTIVE DIAGNOSTICS</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="topo_sub">
                 700+ POS Checkouts ➔ API Gateway ➔ Redis Lua ➔ SQL Server 2022 ➔ RabbitMQ Event Stream
               </p>
             </div>
-            <div class="text-xs font-mono text-cyan-400 flex items-center space-x-1.5">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-              <span>LIVE DATA PACKET STREAM</span>
+            
+            <!-- Traffic Scenario Selector -->
+            <div class="flex items-center space-x-2 text-xs font-mono">
+              <span class="text-slate-400">TRAFFIC:</span>
+              <select id="topoTrafficMode" onchange="changeTopoTraffic(this.value)" class="bg-slate-900 border border-slate-800 text-cyan-300 rounded px-2 py-1 text-xs focus:outline-none">
+                <option value="normal">Normal Daytime (800 RPS)</option>
+                <option value="peak" selected>Evening Peak (5,000 RPS)</option>
+                <option value="flash">Flash-Sale Midnight (12,000 RPS)</option>
+                <option value="failover">Redis Sentinel Failover (Chaos)</option>
+              </select>
             </div>
           </div>
 
-          <!-- Animated SVG Architecture Mesh -->
-          <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-center font-mono text-xs z-10 relative">
+          <!-- Interactive Clickable Node Grid -->
+          <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden font-mono">
+            <p class="text-[10px] text-slate-400 mb-2.5">CLICK ANY ARCHITECTURE NODE TO INSPECT LIVE DIAGNOSTICS & METRICS:</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-center text-xs z-10 relative">
               
-              <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl glow-cyan">
-                <span class="text-2xl block mb-1">🛒</span>
+              <!-- Node 1 -->
+              <div onclick="inspectTopologyNode('pos')" class="cursor-pointer bg-slate-950 border border-cyan-500/30 hover:border-cyan-400 p-3 rounded-xl glow-cyan transition-all group">
+                <span class="text-2xl block mb-1 group-hover:scale-110 transition">🛒</span>
                 <strong class="text-white block">700+ Stores</strong>
                 <span class="text-[10px] text-slate-400">POS Checkouts</span>
-                <span class="text-[9px] text-cyan-400 block mt-1 font-bold">5,000+ RPS</span>
+                <span id="node-pos-metric" class="text-[9px] text-cyan-400 block mt-1 font-bold">5,000 RPS (HTTP/2)</span>
               </div>
 
-              <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl">
-                <span class="text-2xl block mb-1">🛡️</span>
+              <!-- Node 2 -->
+              <div onclick="inspectTopologyNode('gateway')" class="cursor-pointer bg-slate-950 border border-slate-800 hover:border-cyan-400 p-3 rounded-xl transition-all group">
+                <span class="text-2xl block mb-1 group-hover:scale-110 transition">🛡️</span>
                 <strong class="text-white block">API Gateway</strong>
                 <span class="text-[10px] text-slate-400">Keycloak OIDC</span>
-                <span class="text-[9px] text-emerald-400 block mt-1 font-bold">&lt; 2ms Auth</span>
+                <span id="node-gateway-metric" class="text-[9px] text-emerald-400 block mt-1 font-bold">&lt; 1.2ms JWT Verify</span>
               </div>
 
-              <div class="bg-slate-950 border border-cyan-500/40 p-3 rounded-xl glow-cyan">
-                <span class="text-2xl block mb-1">⚡</span>
+              <!-- Node 3 -->
+              <div onclick="inspectTopologyNode('redis')" class="cursor-pointer bg-slate-950 border border-cyan-500/40 hover:border-cyan-300 p-3 rounded-xl glow-cyan transition-all group">
+                <span class="text-2xl block mb-1 group-hover:scale-110 transition">⚡</span>
                 <strong class="text-cyan-400 block">Redis Lua Guard</strong>
                 <span class="text-[10px] text-slate-400">Atomic In-Memory</span>
-                <span class="text-[9px] text-cyan-400 block mt-1 font-bold">90% Fast Reject</span>
+                <span id="node-redis-metric" class="text-[9px] text-cyan-300 block mt-1 font-bold">90% Fast Reject</span>
               </div>
 
-              <div class="bg-slate-950 border border-emerald-500/40 p-3 rounded-xl glow-emerald">
-                <span class="text-2xl block mb-1">🗄️</span>
+              <!-- Node 4 -->
+              <div onclick="inspectTopologyNode('sql')" class="cursor-pointer bg-slate-950 border border-emerald-500/40 hover:border-emerald-300 p-3 rounded-xl glow-emerald transition-all group">
+                <span class="text-2xl block mb-1 group-hover:scale-110 transition">🗄️</span>
                 <strong class="text-emerald-400 block">SQL Server 2022</strong>
                 <span class="text-[10px] text-slate-400">Dapper + RowVersion</span>
-                <span class="text-[9px] text-emerald-400 block mt-1 font-bold">&lt; 4ms Commit</span>
+                <span id="node-sql-metric" class="text-[9px] text-emerald-400 block mt-1 font-bold">&lt; 4ms Commit SLA</span>
               </div>
 
-              <div class="bg-slate-950 border border-purple-500/30 p-3 rounded-xl glow-purple">
-                <span class="text-2xl block mb-1">📨</span>
-                <strong class="text-purple-400 block">RabbitMQ Event</strong>
-                <span class="text-[10px] text-slate-400">Async Audit / BI</span>
-                <span class="text-[9px] text-purple-400 block mt-1 font-bold">Zero-Loss DLQ</span>
+              <!-- Node 5 -->
+              <div onclick="inspectTopologyNode('rabbit')" class="cursor-pointer bg-slate-950 border border-purple-500/30 hover:border-purple-400 p-3 rounded-xl glow-purple transition-all group">
+                <span class="text-2xl block mb-1 group-hover:scale-110 transition">📨</span>
+                <strong class="text-purple-400 block">RabbitMQ Quorum</strong>
+                <span class="text-[10px] text-slate-400">Async Audit & BI</span>
+                <span id="node-rabbit-metric" class="text-[9px] text-purple-400 block mt-1 font-bold">Zero-Loss DLQ</span>
               </div>
 
             </div>
 
             <!-- Flow Arrows Line -->
-            <div class="hidden md:flex justify-between items-center px-12 pt-3 text-cyan-400 text-xs font-mono">
+            <div class="hidden lg:flex justify-between items-center px-12 pt-3 text-cyan-400 text-xs font-mono">
               <span>➔ HTTP/2 + Idempotency ➔</span>
               <span>➔ Token Validated ➔</span>
-              <span>➔ Memory Guard Pass ➔</span>
-              <span>➔ RowVersion Match ➔</span>
+              <span>➔ Lua Memory Check ➔</span>
+              <span>➔ RowVersion Commit ➔</span>
+            </div>
+          </div>
+
+          <!-- Real-Time Node Diagnostic Drawer -->
+          <div id="topoNodeDetail" class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 font-mono text-xs">
+            <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800">
+              <span id="topoDetailTitle" class="text-cyan-400 font-bold text-sm">🛒 NODE DIAGNOSTICS: 700+ POS CHECKOUT TERMINALS</span>
+              <span class="text-emerald-400 text-[10px] font-bold">STATUS: NOMINAL</span>
+            </div>
+            <div id="topoDetailBody" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-slate-300 text-[11px]">
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-500 block text-[10px]">NETWORK PROTOCOL</span>
+                <strong>HTTP/2 Multiplexing + gRPC Keep-Alive</strong>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-500 block text-[10px]">OFFLINE FAILOVER</span>
+                <strong>Local SQLite Outbox Pattern (Sync on reconnect)</strong>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-500 block text-[10px]">IDEMPOTENCY ENFORCEMENT</span>
+                <strong>UUIDv7 Token embedded per POS scan</strong>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 4: HYBRID RAG -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 4: ENTERPRISE HYBRID RAG ORCHESTRATOR -->
+        <!-- ========================================================================= -->
         <div id="view-rag" class="space-y-4 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
                 <span class="text-purple-400">🤖 ENTERPRISE HYBRID RAG ORCHESTRATOR</span>
-                <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-800">QDRANT + BM25</span>
+                <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-800">QDRANT + BM25 + CROSS-ENCODER</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="rag_sub">
                 Groundedness Validation (0.98 Score) • Dense 1536-dim Vectors • Zero Hallucination
@@ -488,27 +713,33 @@
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            <div class="lg:col-span-5 space-y-2">
-              <label class="text-[10px] font-mono text-slate-400 uppercase" data-i18n="rag_select_lbl">SELECT PRODUCTION QUERY:</label>
-              <select id="ragQuerySelect" onchange="runRagPipeline()" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-200 font-mono focus:border-purple-500 focus:outline-none">
+            <div class="lg:col-span-5 space-y-2 font-mono">
+              <label class="text-[10px] text-slate-400 uppercase" data-i18n="rag_select_lbl">SELECT OR TYPE ENTERPRISE QUERY:</label>
+              <div class="flex space-x-1.5">
+                <input type="text" id="customRagInput" placeholder="Type custom query (e.g. Redis Lua OOM failover)..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:border-purple-500 focus:outline-none">
+                <button onclick="executeCustomRag()" class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded-lg text-xs font-bold transition">Run</button>
+              </div>
+
+              <select id="ragQuerySelect" onchange="runRagPipeline()" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:border-purple-500 focus:outline-none">
                 <option value="concurrency">How does Con Cung prevent double-spending vouchers?</option>
                 <option value="latency">What optimizations slashed p99 latency from 1,200ms to &lt; 42ms?</option>
                 <option value="resilience">What is the failover strategy if Redis cluster node dies?</option>
                 <option value="token">How does the system enforce strict token budgets?</option>
               </select>
 
-              <div class="space-y-1.5 pt-1 text-[11px] font-mono">
+              <!-- 4-Stage Pipeline Telemetry -->
+              <div class="space-y-1.5 pt-1 text-[11px]">
                 <div class="bg-slate-900/60 border border-slate-800 p-2 rounded flex justify-between">
                   <span class="text-slate-300">1. Hybrid Embedding (Dense + BM25)</span>
                   <span class="text-emerald-400 font-bold">1536-dim</span>
                 </div>
                 <div class="bg-slate-900/60 border border-slate-800 p-2 rounded flex justify-between">
                   <span class="text-slate-300">2. Qdrant HNSW Cosine Search</span>
-                  <span class="text-cyan-400 font-bold">0.912</span>
+                  <span id="ragCosineScore" class="text-cyan-400 font-bold">0.912 Cosine</span>
                 </div>
                 <div class="bg-slate-900/60 border border-slate-800 p-2 rounded flex justify-between">
                   <span class="text-slate-300">3. Cross-Encoder Reranker</span>
-                  <span class="text-purple-400 font-bold">Top-3</span>
+                  <span class="text-purple-400 font-bold">Top-3 Chunks</span>
                 </div>
                 <div class="bg-slate-900/60 border border-slate-800 p-2 rounded flex justify-between">
                   <span class="text-slate-300">4. Groundedness Filter (Cap)</span>
@@ -526,27 +757,32 @@
               </div>
               <div class="pt-2 border-t border-slate-800 mt-3 flex justify-between text-[10px] font-mono text-slate-500">
                 <span id="ragCitation">Source: Con Cung Architecture Whitepaper (§3.4)</span>
-                <span class="text-emerald-400">100% Verified</span>
+                <span class="text-emerald-400">100% Grounded</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 5: RETAIL PLANOGRAM CV -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 5: RETAIL PLANOGRAM CV SCANNER -->
+        <!-- ========================================================================= -->
         <div id="view-planogram" class="space-y-4 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
                 <span class="text-emerald-400">👁️ RETAIL PLANOGRAM COMPUTER VISION POC</span>
-                <span class="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800">YOLOv8 + OPENCV</span>
+                <span class="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800">YOLOv8 + OPENCV • EDGE ONNX</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="planogram_sub">
-                Automated Nightly Bay Audit across 700+ stores: 45 mins -&gt; 800ms
+                Automated Nightly Bay Audit across 700+ stores: 45 mins -> 800ms
               </p>
             </div>
-            <button onclick="runPlanogramScan()" id="scanBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs font-mono transition">
-              <span data-i18n="btn_scan">RUN YOLOv8 SCANNER</span>
-            </button>
+            
+            <div class="flex items-center space-x-2">
+              <button onclick="runPlanogramScan()" id="scanBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3 py-1.5 rounded-lg text-xs font-mono transition">
+                <span data-i18n="btn_scan">RUN YOLOv8 SCANNER</span>
+              </button>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
@@ -556,78 +792,81 @@
                 <span id="scanStatus" class="text-emerald-400">Ready</span>
               </div>
 
+              <!-- Realistic Supermarket Shelf Visualization -->
               <div class="relative w-full h-56 bg-slate-950 rounded border border-slate-800 flex flex-col justify-end p-3 overflow-hidden">
                 <div id="scannerLine" class="hidden absolute left-0 right-0 h-1 bg-cyan-400 laser-line z-20"></div>
 
                 <div class="w-full grid grid-cols-4 gap-2 z-10">
-                  <div id="item-1" class="relative bg-slate-800 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
-                    <span class="text-xl">🍼</span>
+                  <div id="item-1" class="relative bg-slate-850 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
+                    <span class="text-2xl">🍼</span>
                     <p class="text-[10px] font-bold text-slate-200 mt-1">Enfamil 900g</p>
-                    <p class="text-[8px] font-mono text-slate-500">#10029</p>
-                    <span id="badge-1" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400">MATCH</span>
+                    <p class="text-[8px] font-mono text-slate-500">SKU #10029</p>
+                    <span id="badge-1" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">MATCH (0.94)</span>
                   </div>
 
-                  <div id="item-2" class="relative bg-slate-800 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
-                    <span class="text-xl">🍼</span>
+                  <div id="item-2" class="relative bg-slate-850 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
+                    <span class="text-2xl">🍼</span>
                     <p class="text-[10px] font-bold text-slate-200 mt-1">Similac 850g</p>
-                    <p class="text-[8px] font-mono text-slate-500">#10034</p>
-                    <span id="badge-2" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400">MATCH</span>
+                    <p class="text-[8px] font-mono text-slate-500">SKU #10034</p>
+                    <span id="badge-2" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">MATCH (0.91)</span>
                   </div>
 
-                  <div id="item-3" class="relative bg-slate-800 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
-                    <span class="text-xl">🧻</span>
+                  <div id="item-3" class="relative bg-slate-850 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
+                    <span class="text-2xl">🧻</span>
                     <p class="text-[10px] font-bold text-rose-300 mt-1">Wet Wipes</p>
-                    <p class="text-[8px] font-mono text-rose-400">#48921</p>
-                    <span id="badge-3" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-rose-500/20 text-rose-400 animate-pulse">MISPLACED</span>
+                    <p class="text-[8px] font-mono text-rose-400">SKU #48921</p>
+                    <span id="badge-3" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-rose-500/20 text-rose-400 font-bold animate-pulse">MISPLACED</span>
                   </div>
 
-                  <div id="item-4" class="relative bg-slate-800 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
-                    <span class="text-xl">🍼</span>
+                  <div id="item-4" class="relative bg-slate-850 border border-slate-700 h-32 rounded flex flex-col items-center justify-center p-1 text-center transition-all">
+                    <span class="text-2xl">🍼</span>
                     <p class="text-[10px] font-bold text-slate-200 mt-1">Aptamil Gold</p>
-                    <p class="text-[8px] font-mono text-slate-500">#10088</p>
-                    <span id="badge-4" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400">MATCH</span>
+                    <p class="text-[8px] font-mono text-slate-500">SKU #10088</p>
+                    <span id="badge-4" class="hidden absolute top-1 right-1 text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">MATCH (0.96)</span>
                   </div>
                 </div>
                 <div class="w-full h-3 bg-slate-700 rounded-sm mt-1.5"></div>
               </div>
             </div>
 
-            <div class="lg:col-span-4 space-y-2">
-              <div class="grid grid-cols-3 gap-2 text-center font-mono">
+            <div class="lg:col-span-4 space-y-2 font-mono text-xs">
+              <div class="grid grid-cols-3 gap-2 text-center">
                 <div class="bg-slate-900 p-2 rounded border border-slate-800">
                   <span class="text-[9px] text-slate-500 block">DETECTED</span>
                   <strong class="text-sm text-white">4 SKUs</strong>
                 </div>
                 <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                  <span class="text-[9px] text-slate-500 block">MATCHED</span>
-                  <strong class="text-sm text-emerald-400">3 (75%)</strong>
+                  <span class="text-[9px] text-slate-500 block">COMPLIANCE</span>
+                  <strong class="text-sm text-emerald-400">75%</strong>
                 </div>
                 <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                  <span class="text-[9px] text-slate-500 block">ANOMALY</span>
+                  <span class="text-[9px] text-slate-500 block">DEFECT</span>
                   <strong class="text-sm text-rose-400">1 ALERT</strong>
                 </div>
               </div>
 
-              <div id="alertBox" class="p-2.5 rounded bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400">
-                Click "RUN YOLOv8 SCANNER" to identify item boundaries and calculate IoU.
+              <div id="alertBox" class="p-2.5 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+                Click "RUN YOLOv8 SCANNER" to identify item boundaries, IoU overlap, and planogram alignment.
               </div>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 6: CPU BENCHMARK -->
+        <!-- ========================================================================= -->
+        <!-- VIEW 6: LIVE IN-BROWSER CPU BENCHMARK -->
+        <!-- ========================================================================= -->
         <div id="view-benchmark" class="space-y-4 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-3">
             <div>
               <h3 class="text-sm sm:text-base font-bold text-white font-mono flex items-center space-x-2">
-                <span class="text-amber-400">🚀 LIVE IN-BROWSER CPU BENCHMARK</span>
+                <span class="text-amber-400">🚀 LIVE IN-BROWSER CPU BENCHMARK RUNNER</span>
                 <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">CLIENT-SIDE EXECUTION</span>
               </h3>
               <p class="text-xs text-slate-400 font-mono mt-0.5" data-i18n="bench_sub">
                 No mock data: computes real vector dot-products, optimistic locks, and hash maps on your hardware.
               </p>
             </div>
-            <button onclick="runLiveBrowserBenchmark()" id="benchRunBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs font-mono transition">
+            <button onclick="runLiveBrowserBenchmark()" id="benchRunBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-3 py-1.5 rounded-lg text-xs font-mono transition">
               <span data-i18n="btn_run_bench">⚡ RUN ON YOUR CPU</span>
             </button>
           </div>
@@ -665,7 +904,9 @@
           </div>
         </div>
 
+        <!-- ========================================================================= -->
         <!-- VIEW 7: ARCHITECT DECISION MATRIX -->
+        <!-- ========================================================================= -->
         <div id="view-matrix" class="space-y-3 hidden">
           <div class="pb-2 border-b border-slate-800">
             <h3 class="text-sm sm:text-base font-bold text-white font-mono">🏛️ SYSTEM DESIGN DECISION MATRIX</h3>
@@ -748,10 +989,10 @@
             📄 CV Backend (.NET 8)
           </a>
           <a href="./CV_FullStack_TruongVanTinh.pdf" download class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition">
-            📄 CV FullStack
+            📄 CV FullStack (.NET + Vue/Angular)
           </a>
-          <a href="./CV_AI_TruongVanTinh.pdf" download class="bg-slate-900 hover:bg-slate-800 text-purple-300 border border-purple-500/40 px-3 py-1.5 rounded-lg transition">
-            📄 CV AI & RAG
+          <a href="./CV_AI_TruongVanTinh.pdf" download class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition">
+            📄 CV AI & RAG Orchestrator
           </a>
         </div>
       </div>
@@ -762,12 +1003,12 @@
           <img src="./zalo_qr.jpg" alt="Zalo QR 0931467024" class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl border border-slate-700 object-cover group-hover:scale-105 transition">
           <div class="absolute inset-0 bg-cyan-500/10 rounded-xl pointer-events-none"></div>
         </div>
-        <div class="space-y-1 text-left font-mono">
-          <span class="text-[9px] bg-blue-950 text-blue-300 border border-blue-800 px-1.5 py-0.5 rounded font-bold uppercase">ZALO OFFICIAL</span>
-          <p class="text-xs font-bold text-white">Trương Văn Tình</p>
-          <p class="text-[11px] text-emerald-400 font-bold">0931 467 024</p>
-          <a href="https://zalo.me/0931467024" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] px-2.5 py-1 rounded transition">
-            <span data-i18n="btn_open_zalo">Mở Zalo Ngay ↗</span>
+        <div class="space-y-1 font-mono">
+          <span class="text-[10px] text-cyan-400 font-bold block">SCAN TO CHAT ZALO</span>
+          <p class="text-xs font-extrabold text-white">0931 467 024</p>
+          <p class="text-[10px] text-slate-400">Direct Recruiter Hotline</p>
+          <a href="https://zalo.me/0931467024" target="_blank" class="text-[10px] text-cyan-400 hover:text-cyan-300 font-bold flex items-center space-x-1 pt-0.5">
+            <span data-i18n="btn_open_zalo">Open Zalo Chat ↗</span>
           </a>
         </div>
       </div>
@@ -775,59 +1016,51 @@
     </div>
   </section>
 
-  <!-- COMPACT FOOTER -->
-  <footer class="border-t border-slate-800/80 bg-slate-950 py-3 text-center text-[10px] text-slate-500 font-mono">
-    <span>Truong Van Tinh • Solution Architect & High-Scale Systems Engineer • Ho Chi Minh City, Vietnam</span>
-  </footer>
-
   <!-- ========================================================================= -->
   <!-- HIGH-RES ZALO QR MODAL (POPUP ON CLICK) -->
   <!-- ========================================================================= -->
   <div id="zaloModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-cyan-500/50 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 glow-cyan relative">
-      <button onclick="closeZaloModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white font-mono text-sm">✕</button>
+    <div class="bg-slate-950 border border-cyan-500/50 rounded-2xl max-w-sm w-full p-5 text-center relative shadow-2xl glow-cyan animate-in fade-in zoom-in duration-200">
+      <button onclick="closeZaloModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-lg font-bold">✕</button>
       
-      <div class="w-12 h-12 mx-auto rounded-full bg-blue-600/20 border border-blue-500 flex items-center justify-center text-2xl">
+      <div class="w-10 h-10 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mx-auto mb-2 text-xl">
         💬
       </div>
-
-      <div>
-        <h3 class="text-lg font-bold text-white font-mono">KẾT NỐI QUA ZALO</h3>
-        <p class="text-xs text-slate-400 font-mono mt-0.5">Quét mã QR để trao đổi hợp đồng / phỏng vấn trực tiếp</p>
-      </div>
+      <h3 class="text-base font-bold text-white font-mono">KẾT NỐI QUA ZALO</h3>
+      <p class="text-xs text-slate-400 font-mono mt-0.5 mb-3">Quét mã QR để trao đổi hợp đồng / phỏng vấn trực tiếp</p>
 
       <div class="p-3 bg-white rounded-xl inline-block shadow-2xl mx-auto">
         <img src="./zalo_qr.jpg" alt="Zalo QR 0931467024" class="w-56 h-56 object-cover rounded-lg">
       </div>
 
-      <div class="font-mono text-xs space-y-1">
-        <p class="text-slate-300">Hotline: <strong class="text-emerald-400 select-all">0931 467 024</strong></p>
-        <p class="text-slate-500 text-[11px]">Trương Văn Tình • Solution Architect</p>
+      <div class="mt-3 font-mono text-xs text-slate-300">
+        <p>Hotline: <strong class="text-emerald-400">0931 467 024</strong></p>
+        <p class="text-[10px] text-slate-500 mt-0.5">Trương Văn Tình • Solution Architect</p>
       </div>
 
-      <div class="flex gap-2 pt-1 font-mono text-xs">
-        <a href="https://zalo.me/0931467024" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition">
+      <div class="mt-4 flex space-x-2 font-mono text-xs font-bold">
+        <a href="https://zalo.me/0931467024" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-lg transition">
           Mở Zalo Web ↗
         </a>
-        <a href="tel:0931467024" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg transition">
+        <a href="tel:0931467024" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-lg transition">
           Gọi Điện Thoại
         </a>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC (I18N + COCKPIT ENGINE) -->
+  <!-- ========================================================================= -->
+  <!-- LOGIC & SCRIPTS -->
+  <!-- ========================================================================= -->
   <script>
-    // =========================================================================
-    // I18N DICTIONARY (EN / VI)
-    // =========================================================================
+    // I18N DICTIONARY
     let currentLang = localStorage.getItem('tvt_lang') || 'en';
 
     const translations = {
       en: {
-        hud_status: "CORE SYSTEMS: 100% OPERATIONAL",
+        hud_status: "CORE SYSTEMS: ",
         hero_stack: "Stack: .NET 8 • C# • Clean Architecture • Dapper • Redis Lua • Keycloak • SQL Server 2022 • Qdrant RAG • Docker",
-        btn_hire: "GET CVs (35–40H/WK)",
+        btn_hire: "GET CVs (35-40H/WK)",
         btn_zalo_chat: "CHAT ZALO / CALL",
         kpi_1_lbl: "PEAK CONCURRENCY",
         kpi_1_sub: "Flash-sale stress",
@@ -848,11 +1081,11 @@
         tab_5_title: "Retail CV",
         tab_6_title: "CPU Bench",
         tab_7_title: "Decision Matrix",
-        concurrency_sub: "Dapper + Redis Lua Atomic Scripts vs Naive EF Core Table Locks",
+        concurrency_sub: "Dapper + Redis Lua Atomic Decrement vs Naive EF Core Table Locks",
         concurrency_race_title: "Double-Spending Incidents",
         concurrency_race_sub: "RowVersion lock eliminates race conditions",
         concurrency_pool_title: "SQL CONNECTION POOL",
-        btn_inject_1000: "INJECT 1,000 THREADS COLLISION",
+        btn_inject_1000: "START 5-THREAD COLLISION ARENA",
         chaos_sub: "Zero-Loss Transaction Pipeline: Fast-Fail Circuit Breaker + Idempotency Replay",
         chaos_btn_1_title: "Simulate 40% Partner Timeout",
         chaos_btn_1_sub: "Trips Polly Circuit Breaker OPEN; buffers to RabbitMQ DLQ.",
@@ -862,7 +1095,7 @@
         chaos_btn_3_sub: "Probes endpoint, trips to CLOSED, drains 14 queued messages.",
         topo_sub: "700+ POS Checkouts ➔ API Gateway ➔ Redis Lua ➔ SQL Server 2022 ➔ RabbitMQ Event Stream",
         rag_sub: "Groundedness Validation (0.98 Score) • Dense 1536-dim Vectors • Zero Hallucination",
-        rag_select_lbl: "SELECT PRODUCTION QUERY:",
+        rag_select_lbl: "SELECT OR TYPE ENTERPRISE QUERY:",
         planogram_sub: "Automated Nightly Bay Audit across 700+ stores: 45 mins -> 800ms",
         btn_scan: "RUN YOLOv8 SCANNER",
         bench_sub: "No mock data: computes real vector dot-products, optimistic locks, and hash maps on your hardware.",
@@ -874,9 +1107,9 @@
         btn_open_zalo: "Open Zalo Chat ↗"
       },
       vi: {
-        hud_status: "HỆ THỐNG LÕI: HOẠT ĐỘNG 100%",
+        hud_status: "HỆ THỐNG LÕI: ",
         hero_stack: "Công nghệ: .NET 8 • C# • Clean Architecture • Dapper • Redis Lua • Keycloak • SQL Server 2022 • Qdrant RAG • Docker",
-        btn_hire: "TẢI CVs (35–40H/TUẦN)",
+        btn_hire: "TẢI CVs (35-40H/TUẦN)",
         btn_zalo_chat: "CHAT ZALO / GỌI NGAY",
         kpi_1_lbl: "TẢI ĐỈNH CONCURRENCY",
         kpi_1_sub: "Thực chiến Flash-sale",
@@ -897,11 +1130,11 @@
         tab_5_title: "Thị Giác Máy Tính",
         tab_6_title: "Benchmark CPU",
         tab_7_title: "Bảng Quyết Định",
-        concurrency_sub: "Dapper + Redis Lua Atomic Scripts đối đầu EF Core Khóa Bảng",
+        concurrency_sub: "Dapper + Redis Lua Atomic Decrement đối đầu EF Core Khóa Bảng",
         concurrency_race_title: "Số Vụ Double-Spending",
         concurrency_race_sub: "Khóa RowVersion triệt tiêu tuyệt đối xung đột dữ liệu",
         concurrency_pool_title: "POOL KẾT NỐI SQL SERVER",
-        btn_inject_1000: "BẮN 1,000 LUỒNG ĐỒNG THỜI TRANH CHẤP",
+        btn_inject_1000: "BẬT VÕ ĐÀI TRANH CHẤP 5 LUỒNG",
         chaos_sub: "Đường Ống Giao Dịch Không Thất Thoát: Polly Ngắt Mạch Nhanh + Idempotency Replay",
         chaos_btn_1_title: "Mô Phỏng Đối Tác Timeout 40%",
         chaos_btn_1_sub: "Kích hoạt Polly Circuit Breaker OPEN; đẩy vào RabbitMQ DLQ.",
@@ -911,7 +1144,7 @@
         chaos_btn_3_sub: "Kiểm tra probe, đóng circuit CLOSED, xả 14 giao dịch tồn đọng.",
         topo_sub: "700+ Máy POS ➔ API Gateway ➔ Redis Lua ➔ SQL Server 2022 ➔ Luồng Sự Kiện RabbitMQ",
         rag_sub: "Kiểm Soát Groundedness (Điểm 0.98) • Vector 1536 Chiều • Tuyệt Đối Không Ảo Giác",
-        rag_select_lbl: "CHỌN CÂU HỎI THỰC CHIẾN:",
+        rag_select_lbl: "CHỌN HOẶC NHẬP CÂU HỎI THỰC CHIẾN:",
         planogram_sub: "Kiểm Kê Kệ Hàng Tự Động 700+ Siêu Thị: 45 phút -> 800ms",
         btn_scan: "QUÉT CAMERA YOLOv8",
         bench_sub: "Chạy tính toán thật: đo tích vô hướng vector, khóa optimistic và hash map trên chính máy của bạn.",
@@ -954,7 +1187,7 @@
     }
 
     // =========================================================================
-    // COCKPIT TAB SWITCHER (PREMIUM CARD DESIGN, ZERO CUTOFF)
+    // COCKPIT TAB SWITCHER
     // =========================================================================
     const tabs = ['concurrency', 'chaos', 'topology', 'rag', 'planogram', 'benchmark', 'matrix'];
 
@@ -976,7 +1209,7 @@
     }
 
     // =========================================================================
-    // ENGINE 1: CONCURRENCY SIMULATOR
+    // ENGINE 1: CONCURRENCY & RACE CONDITION ARENA
     // =========================================================================
     let isOptimized = true;
     let currentRps = 5000;
@@ -1077,42 +1310,168 @@
       updateSimulation();
     });
 
-    function injectRaceConditionAttack() {
-      const btn = document.getElementById('attackBtn');
-      btn.innerText = "⚡ INJECTING 1,000 THREADS...";
-      btn.disabled = true;
-      
+    // 5-Thread Arena Execution
+    function runRaceConditionArena() {
+      const toast = document.getElementById('concurrencyTelemetryToast');
+      const status = document.getElementById('arenaStatus');
+      status.innerText = "FIRING 5 CONCURRENT THREADS...";
+      status.className = "text-cyan-400 font-bold text-[11px] animate-pulse";
+
+      // Reset lanes
+      for (let i = 1; i <= 5; i++) {
+        const lane = document.getElementById(`lane-${i}`);
+        lane.style.width = "20%";
+        lane.innerText = "REQUEST SENT";
+        lane.className = "h-full bg-cyan-600 transition-all duration-300 flex items-center px-2 text-[9px] font-bold text-slate-950";
+      }
+
       setTimeout(() => {
         if (isOptimized) {
-          alert(currentLang === 'vi' 
-            ? "KẾT QUẢ THỬ TẢI: 1,000 luồng tranh chấp 25 voucher đồng thời.\n- Redis Lua Fast-Reject: 975 luồng bị chặn tại RAM (< 2ms).\n- SQL Server Commit: Đúng 25 bản ghi ghi nhận thành công.\n- Lỗi Double-Spending: 0 (0.000%)\n- Toàn vẹn dữ liệu: HOÀN HẢO."
-            : "BENCHMARK RESULT:\n1,000 parallel threads hit VoucherEngine for 25 quotas.\n- Redis Lua Fast-Reject: 975 threads rejected in memory (< 2ms).\n- SQL Server Commit: Exactly 25 redemptions committed.\n- Double-Spending: 0 (0.000%)\n- Ledger Integrity: 100% PERFECT.");
+          // Thread 1 wins
+          const lane1 = document.getElementById('lane-1');
+          lane1.style.width = "100%";
+          lane1.innerText = "COMMITTED ✓ (Atomic Lua Decr: 1 -> 0, DB Commit 4ms)";
+          lane1.className = "h-full bg-emerald-400 transition-all duration-300 flex items-center px-2 text-[9px] font-bold text-slate-950";
+
+          // Threads 2-5 fast rejected
+          for (let i = 2; i <= 5; i++) {
+            const lane = document.getElementById(`lane-${i}`);
+            lane.style.width = "40%";
+            lane.innerText = "REJECTED (Redis: 0 quota left in 0.8ms)";
+            lane.className = "h-full bg-slate-700 text-slate-300 transition-all duration-300 flex items-center px-2 text-[9px] font-mono";
+          }
+
+          status.innerText = "ARENA COMPLETE: 1 COMMITTED • 4 FAST-REJECTED";
+          status.className = "text-emerald-400 font-bold text-[11px]";
+
+          toast.innerHTML = `
+            <div class="text-emerald-400 font-bold">✓ ARCHITECT DEFENSE PASSED (100% LEDGER INTEGRITY):</div>
+            <p class="text-slate-300 mt-0.5">Thread-01 acquired atomic decrement in Redis (< 1ms). RowVersion verified on SQL commit.</p>
+            <p class="text-slate-400 text-[10px]">Threads 02-05 intercepted at in-memory layer with ZERO database table contention.</p>
+          `;
+          toast.className = "p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-800 text-[11px] text-slate-300";
         } else {
-          alert(currentLang === 'vi'
-            ? "CẢNH BÁO SẬP (EF CORE): 1,000 luồng gây nghẽn bảng dữ liệu!\n- Deadlock SQL: 48 lỗi xung đột (409 Conflict).\n- Double-Spending: 18 lượt voucher bị chi tiêu đè (Double-Spend)!\n- Dữ liệu bị sai lệch nghiêm trọng!"
-            : "COLLISION FAILURE (UNOPTIMIZED):\n1,000 parallel threads hit EF Core with Table Locks.\n- Threadpool Starvation: 342 connections timed out.\n- SQL Deadlocks: 48 deadlock exceptions.\n- Double-Spending: 18 duplicate redemptions leaked through!\n- Ledger Corrupted!");
+          // Naive EF Core Double Spend disaster
+          const lane1 = document.getElementById('lane-1');
+          lane1.style.width = "100%";
+          lane1.innerText = "COMMITTED (Read stock: 1 -> Set 0)";
+          lane1.className = "h-full bg-rose-500 transition-all duration-300 flex items-center px-2 text-[9px] font-bold text-slate-950";
+
+          const lane2 = document.getElementById('lane-2');
+          lane2.style.width = "100%";
+          lane2.innerText = "DOUBLE-SPEND! (Also read stock: 1 -> Overwrote to -1)";
+          lane2.className = "h-full bg-rose-600 transition-all duration-300 flex items-center px-2 text-[9px] font-bold text-white animate-pulse";
+
+          for (let i = 3; i <= 5; i++) {
+            const lane = document.getElementById(`lane-${i}`);
+            lane.style.width = "70%";
+            lane.innerText = "DEADLOCK TIMEOUT (SQL Lock wait > 1,200ms)";
+            lane.className = "h-full bg-amber-700 text-amber-200 transition-all duration-300 flex items-center px-2 text-[9px] font-mono";
+          }
+
+          status.innerText = "COLLISION DISASTER: DOUBLE-SPEND OCCURRED!";
+          status.className = "text-rose-400 font-bold text-[11px]";
+
+          toast.innerHTML = `
+            <div class="text-rose-400 font-bold">⚠️ CRITICAL RACE CONDITION DETECTED (EF CORE NAIVE):</div>
+            <p class="text-slate-300 mt-0.5">Both Thread-01 and Thread-02 read quota = 1 before commit. Quota breached (-1).</p>
+            <p class="text-rose-300 text-[10px]">Financial liability incurred: Double-redemption leaked to customer POS.</p>
+          `;
+          toast.className = "p-2.5 rounded-lg bg-rose-950/30 border border-rose-800 text-[11px] text-slate-300";
         }
-        btn.innerText = "⚡ " + (currentLang === 'vi' ? "BẮN 1,000 LUỒNG ĐỒNG THỜI TRANH CHẤP" : "INJECT 1,000 THREADS COLLISION");
-        btn.disabled = false;
       }, 500);
     }
 
+    // Code Tab Switcher in View 1
+    const archCodeSnippets = {
+      lua: `-- Redis Atomic Decrement Guard (Executed in Redis Engine in < 1ms)
+-- KEYS[1]: voucher_key (e.g. voucher:quota:TET2026)
+local current = redis.call('GET', KEYS[1])
+if not current or tonumber(current) <= 0 then
+    return 0 -- Immediate in-memory fast-reject; shields SQL Server from 90% bad traffic!
+end
+return redis.call('DECR', KEYS[1]) -- Guaranteed atomic single-hop decrement!`,
+
+      dapper: `// VoucherCheckoutService.cs - High-Throughput Dapper Path
+public async Task<CheckoutResult> RedeemVoucherAsync(string code, long orderId, byte[] clientRowVersion)
+{
+    // Fast path: Dapper Stored Procedure with RowVersion check
+    const string sql = "EXEC sp_RedeemVoucherOptLock @Code, @OrderId, @ExpectedRowVersion;";
+    var rowsAffected = await _dbConnection.ExecuteAsync(sql, new { 
+        Code = code, 
+        OrderId = orderId, 
+        ExpectedRowVersion = clientRowVersion 
+    });
+
+    if (rowsAffected == 0)
+        throw new OptimisticConcurrencyException("Voucher state mutated by concurrent POS!");
+
+    return CheckoutResult.Success();
+}`,
+
+      efcore: `// NaiveEfCore.cs - UNOPTIMIZED ANTI-PATTERN
+public async Task<bool> BadRedeemVoucher(string code)
+{
+    // ANTI-PATTERN: ChangeTracker overhead + Table locks!
+    var voucher = await _context.Vouchers
+        .Include(v => v.Redemptions) // Allocates 80MB on hot path!
+        .FirstOrDefaultAsync(v => v.Code == code);
+
+    if (voucher.Stock > 0) {
+        voucher.Stock--; // Race condition window between Read and SaveChanges!
+        await _context.SaveChangesAsync(); // Causes deadlocks under 5,000 RPS
+        return true;
+    }
+    return false;
+}`
+    };
+
+    function setArchCodeTab(tab) {
+      ['lua', 'dapper', 'efcore'].forEach(t => {
+        const btn = document.getElementById('btn-code-' + t);
+        if (t === tab) {
+          btn.className = "px-2 py-0.5 rounded font-bold text-cyan-400 bg-cyan-950 border border-cyan-800";
+        } else {
+          btn.className = "px-2 py-0.5 rounded font-bold text-slate-400 hover:text-white";
+        }
+      });
+      document.getElementById('codeViewContent').innerHTML = `<code>${archCodeSnippets[tab]}</code>`;
+    }
+
     // =========================================================================
-    // ENGINE 2: CHAOS MONKEY SIMULATOR
+    // ENGINE 2: RESILIENT PARTNER GATEWAY (POLLY + RABBITMQ)
     // =========================================================================
     let queueLength = 0;
+    let totalRetries = 0;
 
     function triggerChaos(type) {
       const consoleEl = document.getElementById('chaosConsole');
       const badge = document.getElementById('circuitStateBadge');
       const time = new Date().toISOString().slice(11, 19);
 
+      const nodeClosed = document.getElementById('stateNodeClosed');
+      const nodeOpen = document.getElementById('stateNodeOpen');
+      const nodeHalf = document.getElementById('stateNodeHalfOpen');
+      const stream = document.getElementById('packetStreamStatus');
+      const timer = document.getElementById('circuitTimer');
+
       if (type === 'timeout') {
-        badge.innerText = "OPEN (CIRCUIT TRIPPED)";
-        badge.className = "bg-rose-950 text-rose-400 border border-rose-800 px-2.5 py-0.5 rounded-full font-bold animate-pulse";
-        queueLength += 14;
-        document.getElementById('queueCount').innerText = `${queueLength} messages in RabbitMQ`;
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span><span>OPEN (TRIPPED & ISOLATED)</span>`;
+        badge.className = "bg-rose-950 text-rose-400 border border-rose-800 px-3 py-1 rounded-full font-bold flex items-center space-x-1.5 animate-pulse";
         
+        nodeClosed.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+        nodeOpen.className = "p-3.5 rounded-xl border border-rose-500/60 bg-rose-950/30 glow-rose transition-all text-white";
+        nodeHalf.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+
+        queueLength += 14;
+        totalRetries += 3;
+        document.getElementById('queueCount').innerText = `${queueLength} messages in RabbitMQ DLQ`;
+        document.getElementById('retryCount').innerText = `${totalRetries} backoffs`;
+
+        stream.innerText = "FAST-FAIL (< 1ms): Deflecting traffic directly to RabbitMQ DLQ!";
+        stream.className = "text-rose-400 font-bold";
+        timer.innerText = "BreakDuration active: 5.0s countdown";
+
         consoleEl.innerHTML += `
           <div class="text-rose-400">[CHAOS] ${time} Injected 40% timeout on Partner Verification Endpoint.</div>
           <div class="text-amber-400">[POLLY] Consecutive failure threshold exceeded (3). Circuit breaker OPEN.</div>
@@ -1120,25 +1479,110 @@
         `;
       } else if (type === 'replay') {
         consoleEl.innerHTML += `
-          <div class="text-cyan-400">[CHAOS] ${time} Replay Attack: 5 duplicate webhooks with key 'tx_9824'.</div>
-          <div class="text-slate-300">[IDEMPOTENCY] Key 'tx_9824' exists in Redis. Returning cached 202 without duplicate charge.</div>
+          <div class="text-cyan-400">[CHAOS] ${time} Replay Attack Storm: 500 duplicate webhooks with key 'tx_9824'.</div>
+          <div class="text-emerald-300">[IDEMPOTENCY] Redis SETNX intercept: 499 duplicates rejected. Returning cached 202 (0 extra DB hits).</div>
         `;
       } else if (type === 'heal') {
-        badge.innerText = "CLOSED (HEALTHY)";
-        badge.className = "bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-0.5 rounded-full font-bold";
-        queueLength = 0;
-        document.getElementById('queueCount').innerText = `0 messages in RabbitMQ`;
+        // Half-open probe then closed
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span><span>HALF-OPEN (PROBING)</span>`;
+        badge.className = "bg-amber-950 text-amber-400 border border-amber-800 px-3 py-1 rounded-full font-bold flex items-center space-x-1.5";
         
+        nodeClosed.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+        nodeOpen.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+        nodeHalf.className = "p-3.5 rounded-xl border border-amber-500/60 bg-amber-950/30 glow-amber transition-all text-white";
+
         consoleEl.innerHTML += `
-          <div class="text-emerald-400">[RECOVERY] ${time} Circuit Breaker half-open probe passed. Resetting to CLOSED.</div>
-          <div class="text-emerald-300">[WORKER] Drained RabbitMQ backlog (14 transactions processed with exponential backoff).</div>
+          <div class="text-amber-400">[PROBE] ${time} Circuit Breaker half-open canary probe dispatched...</div>
         `;
+
+        setTimeout(() => {
+          badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span><span>CLOSED (HEALTHY)</span>`;
+          badge.className = "bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-bold flex items-center space-x-1.5";
+
+          nodeClosed.className = "p-3.5 rounded-xl border border-emerald-500/50 bg-emerald-950/20 glow-emerald transition-all text-white";
+          nodeOpen.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+          nodeHalf.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 transition-all opacity-40";
+
+          queueLength = 0;
+          document.getElementById('queueCount').innerText = `0 messages in RabbitMQ`;
+          stream.innerText = "120 req/s ➔ [Polly Pipeline] ➔ [Partner Gateway: 200 OK]";
+          stream.className = "text-cyan-400 font-bold";
+          timer.innerText = "Probing Window: Continuous";
+
+          consoleEl.innerHTML += `
+            <div class="text-emerald-400">[RECOVERY] Canary probe passed (200 OK). Resetting Circuit to CLOSED.</div>
+            <div class="text-emerald-300">[WORKER] Drained RabbitMQ backlog (14 transactions processed with exponential backoff). Zero data loss.</div>
+          `;
+          consoleEl.scrollTop = consoleEl.scrollHeight;
+        }, 1200);
       }
       consoleEl.scrollTop = consoleEl.scrollHeight;
     }
 
     // =========================================================================
-    // ENGINE 3: RAG PIPELINE
+    // ENGINE 3: TOPOLOGY INSPECTOR
+    // =========================================================================
+    const nodeData = {
+      pos: {
+        title: "🛒 NODE DIAGNOSTICS: 700+ POS CHECKOUT TERMINALS",
+        metrics: ["HTTP/2 Multiplexing + gRPC Keep-Alive", "Local SQLite Outbox Pattern (Sync on reconnect)", "UUIDv7 Token embedded per POS scan"]
+      },
+      gateway: {
+        title: "🛡️ NODE DIAGNOSTICS: CLOUDFLARE + KEYCLOAK API GATEWAY",
+        metrics: ["< 1.2ms JWT RSA-256 Claim Verification", "Distributed Leaky Bucket Rate Limiter (10k RPS cap)", "mTLS Enforcement across microservices"]
+      },
+      redis: {
+        title: "⚡ NODE DIAGNOSTICS: REDIS CLUSTER & LUA ENGINE",
+        metrics: ["Single-Hop Atomic Decrement Script (< 1ms)", "Sentinel 3-Node Quorum with 1.5s Auto-Failover", "Read-Only Replica Scaling (Zero master thread starvation)"]
+      },
+      sql: {
+        title: "🗄️ NODE DIAGNOSTICS: SQL SERVER 2022 PRIMARY & READ REPLICAS",
+        metrics: ["Dapper Parameterized Queries (< 4ms p99 SLA)", "RowVersion Optimistic Concurrency Token", "AlwaysOn Availability Groups with Asynchronous Replicas"]
+      },
+      rabbit: {
+        title: "📨 NODE DIAGNOSTICS: RABBITMQ QUORUM QUEUES & DLQ",
+        metrics: ["Quorum Queue replication across 3 cluster nodes", "Dead-Letter Exchange (DLX) zero-loss buffer", "Prefetch Count tuned to 50 for worker backpressure"]
+      }
+    };
+
+    function inspectTopologyNode(nodeKey) {
+      const data = nodeData[nodeKey];
+      if (!data) return;
+      document.getElementById('topoDetailTitle').innerText = data.title;
+      document.getElementById('topoDetailBody').innerHTML = `
+        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">SPECIFICATION 1</span>
+          <strong>${data.metrics[0]}</strong>
+        </div>
+        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">SPECIFICATION 2</span>
+          <strong>${data.metrics[1]}</strong>
+        </div>
+        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">SPECIFICATION 3</span>
+          <strong>${data.metrics[2]}</strong>
+        </div>
+      `;
+    }
+
+    function changeTopoTraffic(mode) {
+      if (mode === 'normal') {
+        document.getElementById('node-pos-metric').innerText = "800 RPS (Nominal)";
+        document.getElementById('node-redis-metric').innerText = "15% Memory Usage";
+      } else if (mode === 'peak') {
+        document.getElementById('node-pos-metric').innerText = "5,000 RPS (Peak)";
+        document.getElementById('node-redis-metric').innerText = "90% Fast Reject";
+      } else if (mode === 'flash') {
+        document.getElementById('node-pos-metric').innerText = "12,000 RPS (Turbo)";
+        document.getElementById('node-redis-metric').innerText = "98% In-Memory Guard";
+      } else if (mode === 'failover') {
+        document.getElementById('node-pos-metric').innerText = "Sentinel Failover Active";
+        document.getElementById('node-redis-metric').innerText = "Replica Promoted (< 1.5s)";
+      }
+    }
+
+    // =========================================================================
+    // ENGINE 4: HYBRID RAG ORCHESTRATOR
     // =========================================================================
     const ragData = {
       concurrency: {
@@ -1181,8 +1625,24 @@
       }, 400);
     }
 
+    function executeCustomRag() {
+      const query = document.getElementById('customRagInput').value.trim();
+      if (!query) return;
+      const answerEl = document.getElementById('ragAnswer');
+      const citationEl = document.getElementById('ragCitation');
+      
+      answerEl.innerText = `Vectorizing "${query}" (1536 dims)... Running BM25 + Cosine match...`;
+      answerEl.className = "text-xs sm:text-sm text-purple-400 italic font-mono animate-pulse";
+      
+      setTimeout(() => {
+        answerEl.innerText = `[HYBRID RETRIEVAL RESULT FOR "${query}"]: In the retail architecture at Con Cung, all operations related to ${query} are isolated via distributed circuit breakers, buffered through RabbitMQ quorum queues, and grounded against production telemetry schemas to ensure 99.2% faithfulness without LLM hallucinations.`;
+        answerEl.className = "text-xs sm:text-sm text-slate-200 leading-relaxed font-sans";
+        citationEl.innerText = `Source: Dynamic Qdrant Index • Chunk Similarity: 0.941`;
+      }, 600);
+    }
+
     // =========================================================================
-    // ENGINE 4: PLANOGRAM CV SCANNER
+    // ENGINE 5: PLANOGRAM CV SCANNER
     // =========================================================================
     function runPlanogramScan() {
       const scanner = document.getElementById('scannerLine');
@@ -1218,7 +1678,7 @@
     }
 
     // =========================================================================
-    // ENGINE 5: REAL IN-BROWSER CPU BENCHMARK RUNNER
+    // ENGINE 6: REAL IN-BROWSER CPU BENCHMARK RUNNER
     // =========================================================================
     function runLiveBrowserBenchmark() {
       const btn = document.getElementById('benchRunBtn');
@@ -1253,19 +1713,16 @@
         const t5 = performance.now();
         document.getElementById('benchRes3').innerText = `${(t5 - t4).toFixed(2)} ms (200k Ops)`;
 
-        btn.innerText = currentLang === 'vi' ? "✔️ ĐÃ XONG (CPU BẠN)" : "✔️ COMPLETE (YOUR HARDWARE)";
+        btn.innerText = "⚡ " + (currentLang === 'vi' ? "CHẠY LẠI TRÊN CPU" : "RE-RUN ON CPU");
         btn.disabled = false;
-        setTimeout(() => {
-          btn.innerText = currentLang === 'vi' ? "⚡ CHẠY TRÊN CPU CỦA BẠN" : "⚡ RUN ON YOUR CPU";
-        }, 3000);
-      }, 30);
+      }, 50);
     }
 
-    // Initialize
-    window.onload = function() {
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
       setLang(currentLang);
       initChart();
-    };
+    });
   </script>
 </body>
 </html>
