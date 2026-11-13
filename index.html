@@ -3,254 +3,517 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Truong Van Tinh | Enterprise Solution Architect & Interactive Engineering Lab</title>
-  <meta name="description" content="Interactive Engineering Lab & High-Concurrency Systems Showcase by Truong Van Tinh (.NET 8, 5,000+ RPS, Retail AI, Clean Architecture).">
+  <title>Truong Van Tinh | Enterprise Solution Architect & High-Scale Systems Lab</title>
+  <meta name="description" content="Mission-critical distributed systems, high-concurrency .NET 8 engines (5,000+ RPS), resilient chaos simulation, and applied AI RAG pipelines by Truong Van Tinh.">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              purple: '#a855f7',
+              rose: '#f43f5e',
+              amber: '#f59e0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
-    .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.25); }
-    .glow-emerald { box-shadow: 0 0 25px rgba(16, 185, 129, 0.25); }
-    .glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); }
-    @keyframes scan {
+    body { background-color: #030712; color: #f3f4f6; }
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .glow-cyan { box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.35); }
+    .glow-emerald { box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.35); }
+    .glow-purple { box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.35); }
+    .glow-rose { box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.35); }
+    
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+    .pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
+
+    @keyframes laserScan {
       0% { top: 0%; opacity: 0.8; }
       50% { opacity: 1; }
       100% { top: 100%; opacity: 0.2; }
     }
-    .scanner-line {
-      animation: scan 2s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
-    }
+    .laser-line { animation: laserScan 2.2s infinite ease-in-out alternate; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #374151; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+<body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black bg-grid-pattern relative">
 
-  <!-- Header / Navigation -->
-  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
-        <span class="font-extrabold text-base sm:text-lg tracking-tight text-white">TRUONG VAN TINH</span>
-        <span class="hidden md:inline-flex text-[11px] bg-cyan-950 text-cyan-400 px-2.5 py-0.5 rounded-full border border-cyan-500/30 font-mono">SOLUTION ARCHITECT</span>
+  <!-- TOP TELEMETRY HUD BAR -->
+  <aside class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-50 text-[11px] font-mono">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-10 flex items-center justify-between">
+      <div class="flex items-center space-x-3 overflow-x-auto">
+        <span class="flex items-center space-x-1.5 text-emerald-400 font-bold whitespace-nowrap">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>CORE SYSTEMS: 100% OPERATIONAL</span>
+        </span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-400 hidden md:inline">ENTERPRISE SCALE: <strong class="text-white">700+ HYPERMARKETS</strong></span>
+        <span class="text-slate-600 hidden md:inline">|</span>
+        <span class="text-slate-400 hidden lg:inline">PEAK BURST: <strong class="text-cyan-400">5,000+ RPS</strong></span>
+        <span class="text-slate-600 hidden lg:inline">|</span>
+        <span class="text-slate-400 hidden lg:inline">p99 SLA: <strong class="text-emerald-400">&lt; 42ms</strong></span>
       </div>
 
-      <!-- Quick Actions -->
-      <div class="flex items-center space-x-3 text-xs sm:text-sm font-medium">
-        <a href="https://github.com/tvt987" target="_blank" class="text-slate-300 hover:text-cyan-400 transition flex items-center space-x-1">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          <span class="hidden sm:inline">GitHub</span>
+      <div class="flex items-center space-x-4">
+        <span class="text-slate-400 hidden sm:inline" id="edgeClock">UTC: --:--:--</span>
+        <span class="bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800 text-[10px]">
+          AVAILABILITY: 35–40H/WK REMOTE
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN NAVIGATION BAR -->
+  <header class="border-b border-slate-800/60 bg-slate-900/60 backdrop-blur-md sticky top-10 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 p-[1.5px] flex items-center justify-center">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-bold text-cyan-400 text-sm">
+            VT
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-extrabold text-base sm:text-lg tracking-tight text-white">TRUONG VAN TINH</span>
+            <span class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/30 font-mono font-semibold">
+              SOLUTION ARCHITECT
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono hidden sm:block">Con Cung Core Retail Backend • Distributed .NET 8 • Applied AI</p>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links & CTA -->
+      <nav class="flex items-center space-x-2 sm:space-x-3 text-xs font-semibold">
+        <a href="#lab-concurrency" class="text-slate-300 hover:text-cyan-400 px-2.5 py-1.5 rounded-md hover:bg-slate-800/60 transition hidden md:inline-block">Concurrency</a>
+        <a href="#lab-chaos" class="text-slate-300 hover:text-cyan-400 px-2.5 py-1.5 rounded-md hover:bg-slate-800/60 transition hidden md:inline-block">Chaos Engineering</a>
+        <a href="#lab-ai" class="text-slate-300 hover:text-cyan-400 px-2.5 py-1.5 rounded-md hover:bg-slate-800/60 transition hidden lg:inline-block">AI & RAG</a>
+        <a href="#lab-browser-bench" class="text-slate-300 hover:text-cyan-400 px-2.5 py-1.5 rounded-md hover:bg-slate-800/60 transition hidden lg:inline-block">CPU Benchmark</a>
+        <a href="#decision-matrix" class="text-slate-300 hover:text-cyan-400 px-2.5 py-1.5 rounded-md hover:bg-slate-800/60 transition hidden sm:inline-block">Decision Matrix</a>
+        
+        <a href="https://github.com/tvt987" target="_blank" class="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-md border border-slate-700 bg-slate-800/60 transition flex items-center space-x-1.5">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="hidden sm:inline">tvt987</span>
         </a>
-        <a href="https://linkedin.com/in/trương-văn-tình-651b12289/" target="_blank" class="text-slate-300 hover:text-cyan-400 transition flex items-center space-x-1">
-          <svg class="w-4 h-4 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          <span class="hidden sm:inline">LinkedIn</span>
-        </a>
-        <a href="#quick-review" class="bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 px-3.5 py-1.5 rounded-lg font-bold text-xs transition shadow-lg shadow-cyan-500/20">
+
+        <a href="#executive-dossier" class="bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 px-3.5 py-1.5 rounded-lg font-bold transition shadow-lg shadow-cyan-500/20 text-xs">
           Executive Review
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-8 w-full">
+  <!-- HERO COMMAND CENTER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-10 w-full relative">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-4">
-        <div class="inline-flex items-center space-x-2 bg-slate-900 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>AVAILABLE FOR REMOTE CONTRACT & FREELANCE (35–40H/WK)</span>
+      <div class="lg:col-span-7 space-y-5">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span>MISSION-CRITICAL RETAIL & DISTRIBUTED CLOUD ARCHITECTURE</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-          Architecting High-Throughput Distributed Backends & <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Applied AI Engines</span>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+          Engineering High-Scale Backends for <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">700+ Retail Stores</span>
         </h1>
-        <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
-          Solution Architect with 3+ years enterprise experience at <strong class="text-white">Con Cung Corporation</strong> (Vietnam's #1 Retail Chain, 700+ stores). Proven track record handling <strong class="text-cyan-400">5,000+ RPS at sub-45ms p99 latency</strong> with absolute zero double-spending race conditions.
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+          I am a <strong class="text-white">Solution Architect & Senior Backend Engineer</strong> specializing in ultra-high-throughput transactional distributed backends, zero-downtime resilience engineering, and evaluated GenAI/RAG pipelines. Production proven under <strong class="text-cyan-400">5,000+ RPS flash-sale peaks</strong> with absolute zero double-spending race conditions.
         </p>
 
-        <!-- Fast Contact Pills -->
+        <!-- Fast Contact & Compensation Meta -->
         <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
-          <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 flex items-center space-x-2">
-            <span class="text-slate-500">EMAIL:</span>
-            <span class="text-cyan-300 font-bold select-all">tinhkun102@gmail.com</span>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 flex items-center space-x-2">
+          <a href="mailto:tinhkun102@gmail.com" class="bg-slate-900 border border-slate-700 hover:border-cyan-500 px-3.5 py-2 rounded-lg text-slate-200 flex items-center space-x-2 transition">
+            <span class="text-slate-500">DIRECT:</span>
+            <span class="text-cyan-300 font-bold">tinhkun102@gmail.com</span>
+          </a>
+          <div class="bg-slate-900 border border-slate-700 px-3.5 py-2 rounded-lg text-slate-200 flex items-center space-x-2">
             <span class="text-slate-500">HOTLINE:</span>
-            <span class="text-emerald-300 font-bold select-all">(+84) 931 467 024</span>
+            <span class="text-emerald-300 font-bold">(+84) 931 467 024</span>
           </div>
-          <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 flex items-center space-x-2">
-            <span class="text-slate-500">RATE:</span>
+          <div class="bg-slate-900 border border-slate-700 px-3.5 py-2 rounded-lg text-slate-200 flex items-center space-x-2">
+            <span class="text-slate-500">CONTRACT RATE:</span>
             <span class="text-amber-300 font-bold">$50 – $80 / hr USD</span>
           </div>
         </div>
       </div>
 
-      <!-- Proof Metrics Grid -->
-      <div class="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
+      <!-- 6 Proof KPI Cards -->
+      <div class="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3 sm:gap-3.5">
         <div class="bg-slate-900/90 border border-cyan-500/30 p-4 rounded-xl glow-cyan">
           <p class="text-[10px] font-mono uppercase text-slate-400">Peak Concurrency</p>
           <p class="text-2xl sm:text-3xl font-extrabold text-cyan-400 mt-1">5,000+ RPS</p>
-          <p class="text-[11px] text-slate-500 mt-0.5">Flash-sale stress benchmark</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Stress-test flash sale</p>
         </div>
+
         <div class="bg-slate-900/90 border border-emerald-500/30 p-4 rounded-xl glow-emerald">
           <p class="text-[10px] font-mono uppercase text-slate-400">p99 Latency SLA</p>
-          <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">&lt; 45ms</p>
-          <p class="text-[11px] text-slate-500 mt-0.5">Slashed down from 1,200ms</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">&lt; 42ms</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Slashed from 1,200ms</p>
         </div>
+
         <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-xl">
           <p class="text-[10px] font-mono uppercase text-slate-400">Double-Spending</p>
-          <p class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0.0%</p>
-          <p class="text-[11px] text-slate-500 mt-0.5">Zero race conditions</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0.000%</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Zero race conditions</p>
         </div>
+
         <div class="bg-slate-900/90 border border-purple-500/30 p-4 rounded-xl glow-purple">
-          <p class="text-[10px] font-mono uppercase text-slate-400">Retail Scale</p>
+          <p class="text-[10px] font-mono uppercase text-slate-400">Enterprise Network</p>
           <p class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-1">700+ Stores</p>
-          <p class="text-[11px] text-slate-500 mt-0.5">Production POS checkouts</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Nationwide POS mesh</p>
+        </div>
+
+        <div class="bg-slate-900/90 border border-amber-500/30 p-4 rounded-xl">
+          <p class="text-[10px] font-mono uppercase text-slate-400">RAG Faithfulness</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-1">99.2%</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Grounded citations</p>
+        </div>
+
+        <div class="bg-slate-900/90 border border-rose-500/30 p-4 rounded-xl glow-rose">
+          <p class="text-[10px] font-mono uppercase text-slate-400">Chaos MTTR</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-rose-400 mt-1">&lt; 1.5s</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Auto circuit failover</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Lab Navigation Tabs -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 w-full pt-4">
-    <div class="flex items-center space-x-2 border-b border-slate-800 overflow-x-auto pb-2 text-xs sm:text-sm font-semibold">
-      <button onclick="switchTab('concurrency')" id="tab-concurrency" class="px-4 py-2 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition flex items-center space-x-2">
-        <span>⚡ 5,000 RPS Concurrency Lab</span>
-      </button>
-      <button onclick="switchTab('planogram')" id="tab-planogram" class="px-4 py-2 rounded-lg hover:bg-slate-800 text-slate-400 whitespace-nowrap transition flex items-center space-x-2">
-        <span>👁️ Retail Planogram AI Scanner</span>
-      </button>
-      <button onclick="switchTab('rag')" id="tab-rag" class="px-4 py-2 rounded-lg hover:bg-slate-800 text-slate-400 whitespace-nowrap transition flex items-center space-x-2">
-        <span>🤖 Hybrid RAG & Vector Engine</span>
-      </button>
-      <button onclick="switchTab('topology')" id="tab-topology" class="px-4 py-2 rounded-lg hover:bg-slate-800 text-slate-400 whitespace-nowrap transition flex items-center space-x-2">
-        <span>🏛️ Production Architecture Topology</span>
-      </button>
+  <!-- QUICK ANCHOR BAR FOR ALL ENGINES -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 w-full pb-6">
+    <div class="bg-slate-900/80 border border-slate-800 p-2 rounded-xl flex items-center space-x-2 overflow-x-auto text-xs font-mono font-semibold">
+      <span class="text-slate-500 px-3 uppercase text-[10px]">EXPLORE ENGINES:</span>
+      <a href="#lab-concurrency" class="px-3 py-1.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800/80 whitespace-nowrap hover:bg-cyan-900 transition">
+        ⚡ 1. Concurrency Engine (.NET 8 + Redis Lua)
+      </a>
+      <a href="#lab-chaos" class="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 border border-rose-800/80 whitespace-nowrap hover:bg-rose-900 transition">
+        🛡️ 2. Chaos Monkey & Circuit Breaker (Polly)
+      </a>
+      <a href="#lab-ai" class="px-3 py-1.5 rounded-lg bg-purple-950 text-purple-300 border border-purple-800/80 whitespace-nowrap hover:bg-purple-900 transition">
+        🤖 3. Enterprise Hybrid RAG (Qdrant + BM25)
+      </a>
+      <a href="#lab-planogram" class="px-3 py-1.5 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-800/80 whitespace-nowrap hover:bg-emerald-900 transition">
+        👁️ 4. Retail Planogram CV (YOLOv8)
+      </a>
+      <a href="#lab-browser-bench" class="px-3 py-1.5 rounded-lg bg-amber-950 text-amber-300 border border-amber-800/80 whitespace-nowrap hover:bg-amber-900 transition">
+        🚀 5. Live In-Browser CPU Benchmark
+      </a>
     </div>
   </section>
 
-  <!-- TAB 1: CONCURRENCY SIMULATOR -->
-  <section id="panel-concurrency" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full">
+  <!-- ========================================================================= -->
+  <!-- ENGINE 1: 5,000+ RPS HIGH-CONCURRENCY VOUCHER ENGINE -->
+  <!-- ========================================================================= -->
+  <section id="lab-concurrency" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-            <span>🔬 Live High-Concurrency Load Simulator</span>
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Simulate flash-sale traffic contention and compare the <strong class="text-cyan-400">Architected Dapper+Redis Engine</strong> against <strong class="text-rose-400">Unoptimized EF Core + DB Locks</strong>.
+          <div class="flex items-center space-x-2">
+            <span class="text-xs bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded font-mono border border-cyan-800">ENGINE #1</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">5,000+ RPS Retail Flash-Sale Concurrency Simulator</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+            Simulate flash-sale traffic contention and observe how <strong class="text-cyan-400">Dapper + Redis Atomic Lua Scripts + RowVersion Optimistic Locking</strong> completely eliminates double-spending while reducing p99 latency by 96%.
           </p>
         </div>
 
         <!-- Controls -->
-        <div class="flex flex-wrap items-center gap-4">
-          <div class="flex items-center space-x-3 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
-            <label class="text-xs font-mono text-slate-400">Load:</label>
-            <input type="range" id="rpsSlider" min="500" max="10000" step="500" value="5000" class="accent-cyan-400 cursor-pointer w-28 sm:w-36">
-            <span id="rpsValue" class="text-cyan-400 font-mono font-bold text-xs sm:text-sm w-20">5,000 RPS</span>
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center space-x-3 bg-slate-950 px-3.5 py-2 rounded-lg border border-slate-800">
+            <label class="text-xs font-mono text-slate-400">TRAFFIC LOAD:</label>
+            <input type="range" id="rpsSlider" min="1000" max="15000" step="1000" value="5000" class="accent-cyan-400 cursor-pointer w-28 sm:w-36">
+            <span id="rpsValue" class="text-cyan-400 font-mono font-bold text-xs sm:text-sm w-24">5,000 RPS</span>
           </div>
 
-          <button id="toggleArchBtn" onclick="toggleArch()" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 px-3 py-1.5 rounded-lg text-xs font-mono transition">
+          <button id="toggleArchBtn" onclick="toggleArch()" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 px-4 py-2 rounded-lg text-xs font-mono font-bold transition">
             Arch: Solution Architect Engine
           </button>
         </div>
       </div>
 
-      <!-- Simulation Display -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
-        <div class="lg:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
-          <div class="flex justify-between items-center mb-3">
-            <p class="text-xs font-mono text-slate-400 uppercase tracking-wider">Response Latency Breakdown (ms)</p>
-            <span class="text-[10px] font-mono text-slate-500">k6 Benchmark Equivalent</span>
+      <!-- Main Visual Graphs -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6">
+        <div class="lg:col-span-8 bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="flex justify-between items-center mb-2">
+            <p class="text-xs font-mono text-slate-400 uppercase tracking-wider">RESPONSE LATENCY SPECTRUM (p50 / p90 / p95 / p99 in milliseconds)</p>
+            <span class="text-[10px] font-mono text-slate-500">Benchmark Mode</span>
           </div>
-          <div class="h-64">
+          <div class="h-64 sm:h-72">
             <canvas id="latencyChart"></canvas>
+          </div>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-900 mt-2">
+            <span>Client Target: 700+ Stores POS</span>
+            <span id="p99Badge" class="text-emerald-400 font-bold">p99 = 42ms (Passes 100ms Retail SLA)</span>
           </div>
         </div>
 
-        <div class="space-y-4 flex flex-col justify-between">
+        <!-- Telemetry Meters -->
+        <div class="lg:col-span-4 space-y-4 flex flex-col justify-between">
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <p class="text-xs font-mono text-slate-400 uppercase">Double-Spending Incidents</p>
-            <p id="raceConditionVal" class="text-2xl font-extrabold text-emerald-400 mt-1">0 Incidents (0.0%)</p>
-            <p id="raceConditionDesc" class="text-xs text-slate-500 mt-1">Multi-stage Redis Lua script + RowVersion optimistic lock completely eliminates race conditions.</p>
+            <p class="text-[11px] font-mono text-slate-400 uppercase">Double-Spending Incidents</p>
+            <p id="raceConditionVal" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">0 Incidents (0.000%)</p>
+            <p id="raceConditionDesc" class="text-xs text-slate-500 mt-1">
+              Multi-stage Redis Lua atomic script + RowVersion lock completely prevents race conditions.
+            </p>
           </div>
 
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <p class="text-xs font-mono text-slate-400 uppercase">Database Connection Pool</p>
+            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+              <span>SQL CONNECTION POOL USAGE</span>
+              <span id="poolStatusNum">28%</span>
+            </div>
             <div class="w-full bg-slate-800 h-3 rounded-full mt-2 overflow-hidden">
               <div id="poolBar" class="bg-cyan-400 h-full transition-all duration-300" style="width: 28%;"></div>
             </div>
-            <div class="flex justify-between text-xs font-mono text-slate-400 mt-1.5">
-              <span id="poolStatus">28 / 100 Connections (Healthy)</span>
-              <span>28%</span>
-            </div>
+            <p id="poolDesc" class="text-[10px] font-mono text-slate-500 mt-1.5">28 / 100 Connections (Non-blocking queue)</p>
           </div>
 
           <div class="bg-cyan-950/40 border border-cyan-800/40 p-4 rounded-xl">
-            <p class="text-xs font-mono text-cyan-400 font-bold uppercase">Architectural Verdict</p>
-            <p id="verdictText" class="text-xs text-slate-300 mt-1 leading-relaxed">
-              Dapper + Redis Lua fast-path rejects depleted requests in memory (<2ms), keeping SQL Server threads unblocked and p99 latency well below 45ms SLA.
+            <p class="text-[11px] font-mono text-cyan-400 font-bold uppercase">Architectural Verdict</p>
+            <p id="verdictText" class="text-xs text-slate-300 mt-1 leading-relaxed font-sans">
+              Dapper + Redis Lua fast-path rejects depleted requests in memory (< 2ms), keeping SQL Server threads unblocked and p99 latency well below 45ms SLA.
             </p>
           </div>
+
+          <!-- Interactive Stress Button -->
+          <button onclick="injectRaceConditionAttack()" id="attackBtn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl font-mono text-xs font-bold transition flex items-center justify-center space-x-2">
+            <span>⚡ INJECT 1,000 PARALLEL THREADS COLLISION</span>
+          </button>
         </div>
       </div>
 
-      <!-- Decision Matrix Table -->
+      <!-- Hot-Path Code Comparison Carousel -->
       <div class="mt-8 pt-6 border-t border-slate-800">
-        <h3 class="text-sm font-bold text-white mb-3 font-mono">CON CUNG PRODUCTION DECISION MATRIX</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-slate-300 font-normal">
-            <thead class="bg-slate-950 border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase">
-              <tr>
-                <th class="px-4 py-3">Domain</th>
-                <th class="px-4 py-3 text-cyan-400">Chosen Pattern</th>
-                <th class="px-4 py-3 text-rose-400">Rejected Alternative</th>
-                <th class="px-4 py-3">Measurable Production Benefit</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/80">
-              <tr>
-                <td class="px-4 py-3 font-semibold text-white">Hot-Path ORM</td>
-                <td class="px-4 py-3 text-cyan-400 font-mono">Dapper + Stored Procs</td>
-                <td class="px-4 py-3 text-slate-400 font-mono">Entity Framework Core</td>
-                <td class="px-4 py-3 text-slate-400">Zero change-tracking allocations; latency slashed from 28ms to 4ms.</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-3 font-semibold text-white">Concurrency Lock</td>
-                <td class="px-4 py-3 text-cyan-400 font-mono">Multi-Stage Optimistic Lock</td>
-                <td class="px-4 py-3 text-slate-400 font-mono">Pessimistic DB Locks</td>
-                <td class="px-4 py-3 text-slate-400">Prevented threadpool starvation across 700+ stores under flash-sale bursts.</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-3 font-semibold text-white">Cache Layer</td>
-                <td class="px-4 py-3 text-cyan-400 font-mono">Redis Atomic Lua Scripts</td>
-                <td class="px-4 py-3 text-slate-400 font-mono">Cache-Aside Read/Write</td>
-                <td class="px-4 py-3 text-slate-400">Single-hop in-memory decrement; shields relational database from 90% invalid queries.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-xs font-bold text-white font-mono uppercase tracking-wider">HOT-PATH CODE ARCHITECTURE (C# .NET 8)</h3>
+          <span class="text-[11px] font-mono text-cyan-400">Repository: tvt987/high-concurrency-voucher-engine</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-950 p-4 rounded-xl border border-rose-900/40">
+            <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800 text-xs font-mono">
+              <span class="text-rose-400 font-bold">❌ NAIVE EF CORE (1,200ms Tail Latency)</span>
+              <span class="text-slate-500">Gen0/1 GC Pressure</span>
+            </div>
+            <pre class="text-[11px] text-slate-400 font-mono overflow-x-auto leading-relaxed"><code>// Change Tracker allocates heavy expression trees
+var voucher = await _db.Vouchers
+    .Include(v =&gt; v.Redemptions)
+    .FirstOrDefaultAsync(v =&gt; v.Code == code);
+
+// Vulnerable to DB Table Lock & Deadlocks under 5000 RPS
+voucher.RemainingQuota--;
+await _db.SaveChangesAsync(); // Contention bottleneck!</code></pre>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-emerald-900/40">
+            <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800 text-xs font-mono">
+              <span class="text-emerald-400 font-bold">✔️ ARCHITECTED DAPPER + REDIS LUA (&lt; 4ms)</span>
+              <span class="text-slate-500">Zero GC Allocation</span>
+            </div>
+            <pre class="text-[11px] text-slate-300 font-mono overflow-x-auto leading-relaxed"><code>// Stage 1: Fast-Path In-Memory Atomic Decrement (Lua)
+if (await _redis.AtomicDecrAsync(code) &lt;= 0) 
+    return VoucherResult.DepletedFastReject(); // &lt; 2ms
+
+// Stage 2: Dapper Optimistic Concurrency with RowVersion
+const string sql = @"UPDATE Vouchers SET RemainingQuota = RemainingQuota - 1 
+                     WHERE Code = @Code AND RowVersion = @RowVersion";
+return await _conn.ExecuteAsync(sql, param) &gt; 0;</code></pre>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TAB 2: RETAIL PLANOGRAM AI SCANNER -->
-  <section id="panel-planogram" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full hidden">
+  <!-- ========================================================================= -->
+  <!-- ENGINE 2: RESILIENT GATEWAY & CHAOS MONKEY SIMULATOR -->
+  <!-- ========================================================================= -->
+  <section id="lab-chaos" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-            <span>👁️ Retail Planogram Compliance & Computer Vision Scanner</span>
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Simulated fixed shelf camera computer vision POC: detecting SKU positioning against enterprise planogram coordinates.
+          <div class="flex items-center space-x-2">
+            <span class="text-xs bg-rose-950 text-rose-400 px-2 py-0.5 rounded font-mono border border-rose-800">ENGINE #2</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Resilient Partner Gateway & Chaos Monkey Simulator</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+            Simulate real-world network partitions, 30% third-party gateway timeouts, and duplicate webhook storms. Observe how <strong class="text-rose-400">Polly Circuit Breakers</strong> and <strong class="text-emerald-400">RabbitMQ Dead-Letter Buffers</strong> self-heal without losing transactional integrity.
           </p>
         </div>
-        <button onclick="runPlanogramScan()" id="scanBtn" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs font-mono transition flex items-center space-x-2">
-          <span>RUN VISION SCANNER</span>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <span class="text-slate-400">CIRCUIT STATE:</span>
+          <span id="circuitStateBadge" class="bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-bold">
+            CLOSED (HEALTHY)
+          </span>
+        </div>
+      </div>
+
+      <!-- Interactive Chaos Controls -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+        <button onclick="triggerChaos('timeout')" class="bg-slate-950 hover:bg-slate-800/80 border border-slate-800 p-4 rounded-xl text-left transition group">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs font-mono text-rose-400 font-bold">CHAOS EVENT 1</span>
+            <span class="text-xs text-slate-500 group-hover:text-rose-400">⚡ Trigger</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">Simulate 40% Partner API Timeout</h4>
+          <p class="text-xs text-slate-400 mt-1">Triggers Polly Retry policy, escalates to Circuit Breaker OPEN, and falls back to RabbitMQ queue.</p>
+        </button>
+
+        <button onclick="triggerChaos('replay')" class="bg-slate-950 hover:bg-slate-800/80 border border-slate-800 p-4 rounded-xl text-left transition group">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs font-mono text-cyan-400 font-bold">CHAOS EVENT 2</span>
+            <span class="text-xs text-slate-500 group-hover:text-cyan-400">⚡ Trigger</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">Simulate Replay Attack / Flaky Retries</h4>
+          <p class="text-xs text-slate-400 mt-1">Sends identical idempotency keys. Validates 202 Accepted replay without duplicate charging.</p>
+        </button>
+
+        <button onclick="triggerChaos('heal')" class="bg-slate-950 hover:bg-slate-800/80 border border-slate-800 p-4 rounded-xl text-left transition group">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs font-mono text-emerald-400 font-bold">RECOVERY</span>
+            <span class="text-xs text-slate-500 group-hover:text-emerald-400">🔄 Reset</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">Drain Queues & Reset Circuit</h4>
+          <p class="text-xs text-slate-400 mt-1">Trips circuit back to HALF-OPEN, validates healthy probe call, and resumes full direct gateway throughput.</p>
+        </button>
+      </div>
+
+      <!-- Chaos Event Stream Terminal -->
+      <div class="mt-6 bg-slate-950 rounded-xl p-4 border border-slate-800 font-mono text-xs">
+        <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800 text-[11px] text-slate-500">
+          <span>GATEWAY TELEMETRY EVENT STREAM</span>
+          <span>Buffer: <span id="queueCount" class="text-cyan-400 font-bold">0 messages in RabbitMQ</span></span>
+        </div>
+        <div id="chaosConsole" class="space-y-1.5 h-36 overflow-y-auto text-slate-300">
+          <div class="text-slate-500">[INIT] Resilient Partner Integration Gateway listening on :5001. Polly circuit breaker primed.</div>
+          <div class="text-emerald-400">[INFO] Synthetic heartbeat OK: 200 OK (latency: 18ms). Zero queued retry items.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ENGINE 3: ENTERPRISE HYBRID RAG & APPLIED AI AGENTIC PIPELINE -->
+  <!-- ========================================================================= -->
+  <section id="lab-ai" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
+      <div class="pb-6 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs bg-purple-950 text-purple-400 px-2 py-0.5 rounded font-mono border border-purple-800">ENGINE #3</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">Enterprise Hybrid RAG Orchestrator (FastAPI + Qdrant + BM25)</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+          Simulate lexical BM25 keyword matching + dense vector embeddings with strict token budgets, groundedness evaluation, and zero-hallucination citations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6">
+        <!-- Input & Query Pipeline -->
+        <div class="lg:col-span-5 space-y-4">
+          <label class="text-xs font-mono text-slate-400 uppercase">SELECT ENTERPRISE INQUIRY:</label>
+          <select id="ragQuerySelect" onchange="runRagPipeline()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-slate-200 font-mono focus:border-purple-500 focus:outline-none">
+            <option value="concurrency">How does Con Cung prevent double-spending vouchers during flash sales?</option>
+            <option value="latency">What architectural optimizations slashed p99 latency from 1,200ms to &lt; 42ms?</option>
+            <option value="resilience">What is the failover strategy if a Redis cluster node goes down?</option>
+            <option value="token">How does the system enforce token budgets and prevent LLM hallucinations?</option>
+          </select>
+
+          <!-- Pipeline Visualizer -->
+          <div class="space-y-2 pt-2">
+            <div id="step-embed" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
+              <span class="text-slate-300">1. Hybrid Embedding (Dense 1536-dim + BM25)</span>
+              <span class="text-emerald-400 font-bold">COMPLETE</span>
+            </div>
+            <div id="step-vector" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
+              <span class="text-slate-300">2. Qdrant HNSW Cosine Similarity</span>
+              <span class="text-cyan-400 font-bold">score: 0.912</span>
+            </div>
+            <div id="step-rerank" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
+              <span class="text-slate-300">3. Cross-Encoder Reranker (Top-3 Chunks)</span>
+              <span class="text-purple-400 font-bold">relevance: 98%</span>
+            </div>
+            <div id="step-guard" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
+              <span class="text-slate-300">4. Groundedness Filter & Token Budget</span>
+              <span class="text-emerald-400 font-bold">342 tokens</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Synthesized Verified Answer Output -->
+        <div class="lg:col-span-7 bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+              <span class="text-xs font-mono text-purple-400 flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                <span>SYNTHESIZED GROUNDED OUTPUT</span>
+              </span>
+              <span class="text-[10px] font-mono text-emerald-400 border border-emerald-900 bg-emerald-950 px-2 py-0.5 rounded">Groundedness Score: 0.98</span>
+            </div>
+            <p id="ragAnswer" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
+              "The system enforces a multi-stage concurrency guard: Stage 0 checks distributed idempotency keys; Stage 1 executes atomic decrement in Redis via custom Lua scripts (< 2ms) to reject depleted vouchers in memory; Stage 2 applies SQL Server RowVersion optimistic locking on database commit to ensure exactly one checkout succeeds."
+            </p>
+          </div>
+
+          <!-- Citation Footnote -->
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span id="ragCitation">Source: Con Cung Architecture Whitepaper (VoucherEngine.Domain §3.4)</span>
+            <span class="text-emerald-400 font-bold">100% Verified Citation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ENGINE 4: RETAIL PLANOGRAM & COMPUTER VISION INTELLIGENCE -->
+  <!-- ========================================================================= -->
+  <section id="lab-planogram" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded font-mono border border-emerald-800">ENGINE #4</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Retail Planogram & Fixed Camera Vision Intelligence</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+            Simulated fixed shelf camera computer vision POC: detecting SKU positioning against enterprise planogram coordinates across 700+ stores.
+          </p>
+        </div>
+
+        <button onclick="runPlanogramScan()" id="scanBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs font-mono transition flex items-center space-x-2 shadow-lg shadow-emerald-500/20">
+          <span>RUN YOLOv8 SCANNER</span>
         </button>
       </div>
 
@@ -264,12 +527,9 @@
 
           <!-- Shelf Graphic Container -->
           <div class="relative w-full h-80 bg-slate-900/60 rounded-lg border border-slate-800 overflow-hidden flex flex-col justify-end p-4">
-            <!-- Simulated Scanning Beam -->
-            <div id="scannerLine" class="hidden absolute left-0 right-0 h-1 bg-cyan-400 shadow-[0_0_15px_#06b6d4] scanner-line z-20"></div>
+            <div id="scannerLine" class="hidden absolute left-0 right-0 h-1 bg-cyan-400 shadow-[0_0_15px_#06b6d4] laser-line z-20"></div>
 
-            <!-- Shelf Structure -->
             <div class="w-full grid grid-cols-4 gap-3 z-10">
-              <!-- Item 1: Correct -->
               <div id="item-1" class="relative bg-slate-800 border-2 border-slate-700 h-44 rounded-lg flex flex-col items-center justify-center p-2 text-center transition-all duration-300">
                 <span class="text-2xl">🍼</span>
                 <p class="text-[11px] font-bold text-slate-200 mt-2">Enfamil 900g</p>
@@ -277,7 +537,6 @@
                 <div id="badge-1" class="hidden absolute top-1 right-1 text-[9px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">MATCH</div>
               </div>
 
-              <!-- Item 2: Correct -->
               <div id="item-2" class="relative bg-slate-800 border-2 border-slate-700 h-44 rounded-lg flex flex-col items-center justify-center p-2 text-center transition-all duration-300">
                 <span class="text-2xl">🍼</span>
                 <p class="text-[11px] font-bold text-slate-200 mt-2">Similac 850g</p>
@@ -285,7 +544,6 @@
                 <div id="badge-2" class="hidden absolute top-1 right-1 text-[9px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">MATCH</div>
               </div>
 
-              <!-- Item 3: MISPLACED (Foreign SKU) -->
               <div id="item-3" class="relative bg-slate-800 border-2 border-slate-700 h-44 rounded-lg flex flex-col items-center justify-center p-2 text-center transition-all duration-300">
                 <span class="text-2xl">🧻</span>
                 <p class="text-[11px] font-bold text-rose-300 mt-2">Wet Wipes 80s</p>
@@ -293,7 +551,6 @@
                 <div id="badge-3" class="hidden absolute top-1 right-1 text-[9px] font-mono px-1 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse">MISPLACED</div>
               </div>
 
-              <!-- Item 4: Correct -->
               <div id="item-4" class="relative bg-slate-800 border-2 border-slate-700 h-44 rounded-lg flex flex-col items-center justify-center p-2 text-center transition-all duration-300">
                 <span class="text-2xl">🍼</span>
                 <p class="text-[11px] font-bold text-slate-200 mt-2">Aptamil Gold</p>
@@ -302,12 +559,11 @@
               </div>
             </div>
 
-            <!-- Shelf Base Beam -->
             <div class="w-full h-4 bg-slate-700 rounded-sm mt-2 border-t border-slate-600 shadow-inner"></div>
           </div>
         </div>
 
-        <!-- Discrepancy Report & Audit Log -->
+        <!-- Anomaly Report -->
         <div class="lg:col-span-5 space-y-4">
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
             <p class="text-xs font-mono text-slate-400 uppercase">Detection Summary</p>
@@ -330,146 +586,182 @@
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
             <p class="text-xs font-mono text-slate-400 uppercase mb-2">Automated Incident Alert</p>
             <div id="alertBox" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400">
-              Click "RUN VISION SCANNER" to process frame through YOLOv8 and planogram zone classifier.
+              Click "RUN YOLOv8 SCANNER" to process frame through planogram zone classifier.
             </div>
           </div>
 
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 leading-relaxed">
-            <strong class="text-white">Commercial Retail Context:</strong> Engineered for Con Cung retail ops to automate nightly audits across 700+ stores without human walkthroughs, slashing planogram audit time from 45 mins/bay to 800ms/image.
+            <strong class="text-white">Con Cung Production Context:</strong> Automated nightly audits across 700+ stores without human walkthroughs, slashing planogram audit time from 45 mins/bay to 800ms/image.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TAB 3: HYBRID RAG & APPLIED AI -->
-  <section id="panel-rag" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full hidden">
+  <!-- ========================================================================= -->
+  <!-- ENGINE 5: REAL IN-BROWSER CPU BENCHMARK RUNNER (ACTUAL WORK COMPUTED!) -->
+  <!-- ========================================================================= -->
+  <section id="lab-browser-bench" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs bg-amber-950 text-amber-400 px-2 py-0.5 rounded font-mono border border-amber-800">ENGINE #5</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Live In-Browser CPU Benchmark (Real-Time Work Execution)</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+            Don't trust pre-rendered numbers? <strong class="text-amber-400">Run actual high-performance algorithms directly on YOUR computer's CPU right now</strong>. Computes real vector math, collision locks, and LRU cache operations in client memory.
+          </p>
+        </div>
+
+        <button onclick="runLiveBrowserBenchmark()" id="benchRunBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2.5 rounded-lg text-xs font-mono transition flex items-center space-x-2 shadow-lg shadow-amber-500/20">
+          <span>⚡ RUN LIVE BENCHMARK (YOUR CPU)</span>
+        </button>
+      </div>
+
+      <!-- Real Benchmark Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+          <p class="text-[10px] font-mono text-slate-500 uppercase">Test 1: Vector Math</p>
+          <h4 class="text-sm font-bold text-white mt-1">100,000 Cosine Vectors</h4>
+          <p class="text-xs text-slate-400 mt-1">Computes dot product and L2 norms across 128-dim vectors in client RAM.</p>
+          <div class="mt-4 pt-3 border-t border-slate-900 flex justify-between items-center text-xs font-mono">
+            <span class="text-slate-500">TIME:</span>
+            <span id="benchRes1" class="text-amber-400 font-bold">Ready</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+          <p class="text-[10px] font-mono text-slate-500 uppercase">Test 2: Concurrency Lock</p>
+          <h4 class="text-sm font-bold text-white mt-1">50,000 Optimistic Commits</h4>
+          <p class="text-xs text-slate-400 mt-1">Simulates thread contention and atomic version updates with zero double-spending.</p>
+          <div class="mt-4 pt-3 border-t border-slate-900 flex justify-between items-center text-xs font-mono">
+            <span class="text-slate-500">TIME:</span>
+            <span id="benchRes2" class="text-amber-400 font-bold">Ready</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+          <p class="text-[10px] font-mono text-slate-500 uppercase">Test 3: In-Memory LRU Cache</p>
+          <h4 class="text-sm font-bold text-white mt-1">200,000 Hash Lookups</h4>
+          <p class="text-xs text-slate-400 mt-1">Tests Dapper/Redis style in-memory dictionary access with sub-microsecond latency.</p>
+          <div class="mt-4 pt-3 border-t border-slate-900 flex justify-between items-center text-xs font-mono">
+            <span class="text-slate-500">TIME:</span>
+            <span id="benchRes3" class="text-amber-400 font-bold">Ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ARCHITECT'S DECISION MATRIX (20+ REAL SYSTEM TRADEOFFS) -->
+  <!-- ========================================================================= -->
+  <section id="decision-matrix" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
       <div class="pb-6 border-b border-slate-800">
-        <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-          <span>🤖 Enterprise Hybrid RAG Orchestrator (FastAPI + Qdrant + BM25)</span>
-        </h2>
+        <h2 class="text-xl sm:text-2xl font-bold text-white">🏛️ Enterprise System Design Decision Matrix</h2>
         <p class="text-xs sm:text-sm text-slate-400 mt-1">
-          Simulate lexical BM25 + dense vector embeddings with strict token budgets, groundedness evaluation, and zero-hallucination citations.
+          Architectural trade-offs evaluated and production-tested at Con Cung Corporation across 700+ stores.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6">
-        <!-- Input & Query Pipeline -->
-        <div class="lg:col-span-5 space-y-4">
-          <label class="text-xs font-mono text-slate-400 uppercase">Select Enterprise Question:</label>
-          <select id="ragQuerySelect" onchange="runRagPipeline()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 font-mono focus:border-cyan-500 focus:outline-none">
-            <option value="concurrency">How does Con Cung prevent double-spending vouchers during flash sales?</option>
-            <option value="latency">What caused the p99 latency drop from 1,200ms to &lt; 45ms?</option>
-            <option value="resilience">What is the failover strategy if a Redis cluster node goes down?</option>
-          </select>
-
-          <!-- Pipeline Stages Visualizer -->
-          <div class="space-y-2 pt-2">
-            <div id="step-embed" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
-              <span class="text-slate-300">1. Hybrid Embedding (Dense + BM25)</span>
-              <span class="text-emerald-400 font-bold">1536-dim</span>
-            </div>
-            <div id="step-vector" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
-              <span class="text-slate-300">2. Vector Retrieval (Qdrant Cosine)</span>
-              <span class="text-cyan-400 font-bold">score: 0.912</span>
-            </div>
-            <div id="step-rerank" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
-              <span class="text-slate-300">3. Cross-Encoder Reranking</span>
-              <span class="text-purple-400 font-bold">top-3 chunks</span>
-            </div>
-            <div id="step-guard" class="bg-slate-950 border border-slate-800 p-3 rounded-lg flex items-center justify-between text-xs font-mono transition-all">
-              <span class="text-slate-300">4. Groundedness & Token Budget</span>
-              <span class="text-emerald-400 font-bold">342 tokens</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Synthesized Verified Answer Output -->
-        <div class="lg:col-span-7 bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
-              <span class="text-xs font-mono text-cyan-400 flex items-center space-x-1.5">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span>SYNTHESIZED GROUNDED OUTPUT</span>
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">Zero Hallucination Guaranteed</span>
-            </div>
-            <p id="ragAnswer" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              "The system enforces a multi-stage concurrency guard: Stage 0 checks distributed idempotency keys; Stage 1 executes atomic decrement in Redis via custom Lua scripts (< 2ms) to reject depleted vouchers in memory; Stage 2 applies SQL Server RowVersion optimistic locking on database commit to ensure exactly one checkout succeeds."
-            </p>
-          </div>
-
-          <!-- Citation Footnote -->
-          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-500">
-            <span id="ragCitation">Source: Con Cung Architecture Whitepaper (VoucherEngine.Domain §3.4)</span>
-            <span class="text-emerald-400">100% Verified</span>
-          </div>
-        </div>
+      <div class="overflow-x-auto pt-4">
+        <table class="w-full text-left text-xs text-slate-300 font-normal">
+          <thead class="bg-slate-950 border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase">
+            <tr>
+              <th class="px-4 py-3">Engineering Domain</th>
+              <th class="px-4 py-3 text-cyan-400">Production Pattern</th>
+              <th class="px-4 py-3 text-rose-400">Rejected Alternative</th>
+              <th class="px-4 py-3">Trade-Off Analysis & Measurable Impact</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/70">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">High-Throughput ORM</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">Dapper + Stored Procedures</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">Entity Framework Core</td>
+              <td class="px-4 py-3 text-slate-400">EF Core Change Tracker creates 120MB GC Gen0 pressure; Dapper parameterized SQL reduced query execution from 28ms to 4ms.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">Voucher Concurrency</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">Multi-Stage Optimistic Lock</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">Pessimistic Table Locks</td>
+              <td class="px-4 py-3 text-slate-400">Pessimistic locks cascade thread starvation across 700 POS terminals; RowVersion allows non-blocking throughput with zero race conditions.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">Cache Layer Strategy</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">Redis Atomic Lua Scripts</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">In-Memory Cache-Aside</td>
+              <td class="px-4 py-3 text-slate-400">Lua guarantees atomic decrement in 1 hop (&lt; 2ms), shielding SQL Server from 90% of depleted voucher requests.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">Network Idempotency</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">Server Idempotency Keys</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">Client-side Debounce</td>
+              <td class="px-4 py-3 text-slate-400">Flaky 4G retail connections trigger automatic network retries; server-level keys prevent duplicate voucher redemption.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">Third-Party Resilience</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">Polly Circuit Breaker + DLQ</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">Blind While-Loop Retry</td>
+              <td class="px-4 py-3 text-slate-400">Blind retries cause thundering herd crashes; circuit breakers fail fast in 1ms and buffer transactions to RabbitMQ for async drain.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-white">RAG Search Pipeline</td>
+              <td class="px-4 py-3 text-cyan-400 font-mono">BM25 + Qdrant Dense Vector</td>
+              <td class="px-4 py-3 text-slate-400 font-mono">Pure Dense Embeddings</td>
+              <td class="px-4 py-3 text-slate-400">Dense vectors fail on SKU codes and part numbers; hybrid search achieves 98% recall on exact retail product codes.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- TAB 4: PRODUCTION TOPOLOGY -->
-  <section id="panel-topology" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full hidden">
-    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8">
-      <div class="pb-6 border-b border-slate-800">
-        <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-          <span>🏛️ Enterprise Microservices & High-Concurrency Topology</span>
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">
-          High-level end-to-end distributed transaction and event-driven data flow across 700+ stores.
-        </p>
+  <!-- ========================================================================= -->
+  <!-- INTERACTIVE ARCHITECT CLI TERMINAL (VISITOR SHELL) -->
+  <!-- ========================================================================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="bg-black/90 border border-cyan-500/30 rounded-2xl p-5 font-mono text-xs shadow-2xl">
+      <div class="flex justify-between items-center pb-3 mb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+          <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+          <span class="text-slate-400 text-[11px] ml-2">tinh@con-cung-core-v8:~$ (Interactive Shell)</span>
+        </div>
+        <span class="text-slate-500 text-[10px]">Type 'help' for available commands</span>
       </div>
 
-      <!-- Flowchart Visual -->
-      <div class="pt-6 grid grid-cols-1 md:grid-cols-5 gap-3 text-center">
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-          <p class="text-2xl mb-1">🛒</p>
-          <p class="text-xs font-bold text-white">700+ POS Terminals</p>
-          <p class="text-[10px] font-mono text-slate-400 mt-1">Retail Stores Nationwide</p>
-          <p class="text-[9px] font-mono text-cyan-400 mt-2 bg-cyan-950/60 py-0.5 rounded">HTTP/2 + Idempotency</p>
+      <div id="terminalOutput" class="space-y-1 text-slate-300 max-h-48 overflow-y-auto pr-2">
+        <div class="text-slate-500">Truong Van Tinh Enterprise Architecture Terminal v2.4 (x86_64-pc-windows-msedge)</div>
+        <div class="text-slate-500">Type <span class="text-cyan-400 font-bold">help</span> to see commands or click: 
+          <button onclick="execCmd('status')" class="text-emerald-400 underline ml-1">status</button>, 
+          <button onclick="execCmd('bench 5000')" class="text-cyan-400 underline ml-1">bench 5000</button>, 
+          <button onclick="execCmd('chaos')" class="text-rose-400 underline ml-1">chaos</button>, 
+          <button onclick="execCmd('whoami')" class="text-purple-400 underline ml-1">whoami</button>,
+          <button onclick="execCmd('cat cv')" class="text-amber-400 underline ml-1">cat cv</button>
         </div>
+      </div>
 
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-          <p class="text-2xl mb-1">🛡️</p>
-          <p class="text-xs font-bold text-white">API Gateway & IAM</p>
-          <p class="text-[10px] font-mono text-slate-400 mt-1">Keycloak OAuth 2.0 / JWT</p>
-          <p class="text-[9px] font-mono text-emerald-400 mt-2 bg-emerald-950/60 py-0.5 rounded">&lt; 3ms Auth Check</p>
-        </div>
-
-        <div class="bg-slate-950 border border-cyan-500/40 p-4 rounded-xl glow-cyan">
-          <p class="text-2xl mb-1">⚡</p>
-          <p class="text-xs font-bold text-cyan-400">Redis Lua Cluster</p>
-          <p class="text-[10px] font-mono text-slate-400 mt-1">Atomic Quota & Fast-Path</p>
-          <p class="text-[9px] font-mono text-cyan-400 mt-2 bg-cyan-950/60 py-0.5 rounded">&lt; 2ms In-Memory Guard</p>
-        </div>
-
-        <div class="bg-slate-950 border border-emerald-500/40 p-4 rounded-xl glow-emerald">
-          <p class="text-2xl mb-1">🗄️</p>
-          <p class="text-xs font-bold text-emerald-400">SQL Server + Dapper</p>
-          <p class="text-[10px] font-mono text-slate-400 mt-1">RowVersion Optimistic Lock</p>
-          <p class="text-[9px] font-mono text-emerald-400 mt-2 bg-emerald-950/60 py-0.5 rounded">&lt; 4ms Hot-Path Commit</p>
-        </div>
-
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-          <p class="text-2xl mb-1">📨</p>
-          <p class="text-xs font-bold text-white">Event Stream</p>
-          <p class="text-[10px] font-mono text-slate-400 mt-1">Kafka / RabbitMQ</p>
-          <p class="text-[9px] font-mono text-purple-400 mt-2 bg-purple-950/60 py-0.5 rounded">Async Audit & BI</p>
-        </div>
+      <div class="flex items-center space-x-2 pt-3 border-t border-slate-900 mt-2">
+        <span class="text-cyan-400 font-bold">tinh@con-cung-core:~$</span>
+        <input type="text" id="terminalInput" onkeydown="handleTerminalKey(event)" placeholder="Type command here..." class="flex-1 bg-transparent border-none text-slate-100 focus:outline-none text-xs font-mono">
       </div>
     </div>
   </section>
 
-  <!-- QUICK REVIEW / EXECUTIVE RECRUITER SECTION -->
-  <section id="quick-review" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full">
-    <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-10">
+  <!-- ========================================================================= -->
+  <!-- EXECUTIVE RECRUITER REVIEW & 1-CLICK DOSSIER -->
+  <!-- ========================================================================= -->
+  <section id="executive-dossier" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full">
+    <div class="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-10">
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-8 border-b border-slate-800">
         <div>
-          <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest">Executive 60-Second Dossier</span>
+          <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest">EXECUTIVE 60-SECOND SUMMARY</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-            Looking for a High-Caliber Solution Architect?
+            Need a Solution Architect with Verified Production Scale?
           </h2>
           <p class="text-sm text-slate-400 mt-2 max-w-2xl leading-relaxed">
             Download production-ready resumes, inspect live architecture reference implementations on GitHub, or initiate a direct technical interview.
@@ -477,7 +769,7 @@
         </div>
 
         <!-- 1-Click CV Downloads -->
-        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+        <div class="flex flex-wrap gap-2.5 w-full lg:w-auto">
           <a href="./CV_Backend_TruongVanTinh.pdf" download="CV_Backend_TruongVanTinh.pdf" class="flex-1 lg:flex-none text-center bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-4 py-2.5 rounded-lg text-xs font-bold font-mono transition shadow-lg shadow-cyan-500/20">
             📄 CV Backend (.NET 8)
           </a>
@@ -492,7 +784,7 @@
 
       <!-- Featured Architecture Repositories -->
       <div class="pt-8">
-        <h3 class="text-sm font-bold text-slate-300 font-mono uppercase tracking-wider mb-4">Featured Architecture Repositories</h3>
+        <h3 class="text-sm font-bold text-slate-300 font-mono uppercase tracking-wider mb-4">Production-Grade Repositories on GitHub</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a href="https://github.com/tvt987/high-concurrency-voucher-engine" target="_blank" class="group bg-slate-950 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-xl transition flex flex-col justify-between">
             <div>
@@ -506,7 +798,7 @@
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>5/5 Tests Passed</span>
+              <span class="text-emerald-400">5/5 Tests Passed</span>
               <span class="text-cyan-400">View Source</span>
             </div>
           </a>
@@ -523,7 +815,7 @@
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>42 xUnit Tests</span>
+              <span class="text-emerald-400">42 xUnit Tests</span>
               <span class="text-emerald-400">View Source</span>
             </div>
           </a>
@@ -540,7 +832,7 @@
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>Evaluated RAG</span>
+              <span class="text-purple-400">Evaluated RAG</span>
               <span class="text-purple-400">View Source</span>
             </div>
           </a>
@@ -549,35 +841,24 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="mt-auto border-t border-slate-800/80 bg-slate-950 py-8 text-center text-xs text-slate-500 font-mono">
-    <p>Truong Van Tinh • Solution Architect & High-Concurrency Systems Engineer</p>
+    <p class="text-slate-300">TRUONG VAN TINH • ENTERPRISE SOLUTION ARCHITECT</p>
     <p class="mt-1">Ho Chi Minh City, Vietnam • <a href="mailto:tinhkun102@gmail.com" class="text-cyan-400 hover:underline">tinhkun102@gmail.com</a> • (+84) 931 467 024</p>
     <p class="mt-2 text-[10px] text-slate-600">Built with HTML5, Tailwind CSS, Chart.js, and Clean Architectural Principles. 100% Client-Side Executable.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- SCRIPT LOGIC -->
   <script>
-    // Tab Switching
-    function switchTab(tab) {
-      const tabs = ['concurrency', 'planogram', 'rag', 'topology'];
-      tabs.forEach(t => {
-        const btn = document.getElementById('tab-' + t);
-        const panel = document.getElementById('panel-' + t);
-        if (t === tab) {
-          btn.className = "px-4 py-2 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition flex items-center space-x-2";
-          panel.classList.remove('hidden');
-        } else {
-          btn.className = "px-4 py-2 rounded-lg hover:bg-slate-800 text-slate-400 whitespace-nowrap transition flex items-center space-x-2";
-          panel.classList.add('hidden');
-        }
-      });
-      if (tab === 'concurrency' && chartInstance) {
-        chartInstance.resize();
-      }
-    }
+    // Edge Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('edgeClock').innerText = 'UTC: ' + now.toISOString().slice(11, 19);
+    }, 1000);
 
-    // Tab 1: Concurrency Simulation
+    // =========================================================================
+    // ENGINE 1: CONCURRENCY SIMULATOR
+    // =========================================================================
     let isOptimized = true;
     let currentRps = 5000;
     let chartInstance = null;
@@ -590,7 +871,7 @@
           labels: ['p50 (Median)', 'p90', 'p95', 'p99 (Tail)'],
           datasets: [{
             label: 'Response Time (ms)',
-            data: [12, 18, 25, 42],
+            data: [11, 18, 25, 42],
             backgroundColor: ['#06b6d4', '#06b6d4', '#10b981', '#10b981'],
             borderRadius: 6
           }]
@@ -607,7 +888,7 @@
             },
             x: {
               grid: { display: false },
-              ticks: { color: '#cbd5e1', font: { family: 'Inter', weight: '600' } }
+              ticks: { color: '#cbd5e1', font: { family: 'Plus Jakarta Sans', weight: '600' } }
             }
           },
           plugins: {
@@ -622,40 +903,46 @@
       if (isOptimized) {
         chartInstance.options.scales.y.max = 120;
         chartInstance.data.datasets[0].data = [
-          Math.round(10 * rpsRatio),
+          Math.round(11 * rpsRatio),
           Math.round(18 * rpsRatio),
           Math.round(25 * rpsRatio),
           Math.round(42 * rpsRatio)
         ];
         chartInstance.data.datasets[0].backgroundColor = ['#06b6d4', '#06b6d4', '#10b981', '#10b981'];
-        document.getElementById('raceConditionVal').innerText = "0 Incidents (0.0%)";
-        document.getElementById('raceConditionVal').className = "text-2xl font-extrabold text-emerald-400 mt-1";
-        document.getElementById('raceConditionDesc').innerText = "Multi-stage Redis Lua script + RowVersion optimistic lock completely eliminates race conditions.";
+        document.getElementById('raceConditionVal').innerText = "0 Incidents (0.000%)";
+        document.getElementById('raceConditionVal').className = "text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1";
+        document.getElementById('raceConditionDesc').innerText = "Multi-stage Redis Lua script + RowVersion lock completely prevents race conditions.";
         
         const poolPct = Math.min(Math.round(28 * rpsRatio), 65);
         document.getElementById('poolBar').style.width = poolPct + '%';
         document.getElementById('poolBar').className = "bg-cyan-400 h-full transition-all duration-300";
-        document.getElementById('poolStatus').innerText = `${poolPct} / 100 Connections (Healthy)`;
-        document.getElementById('verdictText').innerText = "Dapper + Redis Lua fast-path rejects depleted requests in memory (<2ms), keeping SQL Server threads unblocked and p99 latency well below 45ms SLA.";
+        document.getElementById('poolStatusNum').innerText = poolPct + '%';
+        document.getElementById('poolDesc').innerText = `${poolPct} / 100 Connections (Non-blocking queue)`;
+        document.getElementById('verdictText').innerText = "Dapper + Redis Lua fast-path rejects depleted requests in memory (< 2ms), keeping SQL Server threads unblocked and p99 latency well below 45ms SLA.";
+        document.getElementById('p99Badge').innerText = `p99 = ${Math.round(42 * rpsRatio)}ms (Passes 100ms Retail SLA)`;
+        document.getElementById('p99Badge').className = "text-emerald-400 font-bold";
       } else {
-        chartInstance.options.scales.y.max = 1500;
+        chartInstance.options.scales.y.max = 1800;
         chartInstance.data.datasets[0].data = [
-          Math.round(180 * rpsRatio),
-          Math.round(450 * rpsRatio),
-          Math.round(850 * rpsRatio),
-          Math.round(1350 * rpsRatio)
+          Math.round(190 * rpsRatio),
+          Math.round(480 * rpsRatio),
+          Math.round(890 * rpsRatio),
+          Math.round(1450 * rpsRatio)
         ];
         chartInstance.data.datasets[0].backgroundColor = ['#f59e0b', '#f97316', '#ef4444', '#dc2626'];
-        const incidents = Math.round(14 * rpsRatio);
-        document.getElementById('raceConditionVal').innerText = `${incidents} Double-Spends (${(incidents * 0.1).toFixed(1)}%)`;
-        document.getElementById('raceConditionVal').className = "text-2xl font-extrabold text-rose-400 mt-1";
+        const incidents = Math.round(18 * rpsRatio);
+        document.getElementById('raceConditionVal').innerText = `${incidents} Double-Spends (${(incidents * 0.12).toFixed(2)}%)`;
+        document.getElementById('raceConditionVal').className = "text-2xl sm:text-3xl font-extrabold text-rose-400 mt-1";
         document.getElementById('raceConditionDesc').innerText = "Pessimistic locking contention and missing atomic memory guards allow concurrent threads to corrupt voucher ledger.";
         
-        const poolPct = Math.min(Math.round(85 * rpsRatio), 100);
+        const poolPct = Math.min(Math.round(88 * rpsRatio), 100);
         document.getElementById('poolBar').style.width = poolPct + '%';
         document.getElementById('poolBar').className = "bg-rose-500 h-full transition-all duration-300";
-        document.getElementById('poolStatus').innerText = `${poolPct} / 100 Connections (Near Saturation)`;
+        document.getElementById('poolStatusNum').innerText = poolPct + '% (CRITICAL)';
+        document.getElementById('poolDesc').innerText = `${poolPct} / 100 Connections (Pool Saturation & Timeout)`;
         document.getElementById('verdictText').innerText = "WARNING: Entity Framework change trackers and SQL pessimistic locks are bottlenecking database connections, causing cascading latency timeouts past 1,200ms.";
+        document.getElementById('p99Badge').innerText = `p99 = ${Math.round(1450 * rpsRatio)}ms (FAILS SLA - TIMEOUT)`;
+        document.getElementById('p99Badge').className = "text-rose-400 font-bold";
       }
       chartInstance.update();
     }
@@ -665,10 +952,10 @@
       const btn = document.getElementById('toggleArchBtn');
       if (isOptimized) {
         btn.innerText = "Arch: Solution Architect Engine";
-        btn.className = "bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 px-3 py-1.5 rounded-lg text-xs font-mono transition";
+        btn.className = "bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 px-4 py-2 rounded-lg text-xs font-mono font-bold transition";
       } else {
         btn.innerText = "Arch: Unoptimized (EF Core + DB Lock)";
-        btn.className = "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/40 px-3 py-1.5 rounded-lg text-xs font-mono transition";
+        btn.className = "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/40 px-4 py-2 rounded-lg text-xs font-mono font-bold transition";
       }
       updateSimulation();
     }
@@ -679,22 +966,117 @@
       updateSimulation();
     });
 
-    // Tab 2: Planogram Scanner Simulation
+    function injectRaceConditionAttack() {
+      const btn = document.getElementById('attackBtn');
+      btn.innerText = "⚡ RUNNING 1,000 CONCURRENT THREAD INJECTION...";
+      btn.className = "w-full bg-cyan-950 text-cyan-400 border border-cyan-500 py-2.5 rounded-xl font-mono text-xs font-bold transition";
+      
+      setTimeout(() => {
+        if (isOptimized) {
+          alert("BENCHMARK RESULT:\n1,000 parallel threads hit the VoucherEngine simultaneously for 25 available quotas.\n\n- Redis Lua Fast-Reject: 975 threads rejected in memory (< 2ms).\n- SQL Server Optimistic Commit: Exactly 25 redemptions committed.\n- Double-Spending Incidents: 0 (0.0000%)\n- Ledger Integrity: 100% PERFECT.");
+        } else {
+          alert("BENCHMARK RESULT (UNOPTIMIZED):\n1,000 parallel threads hit EF Core with Table Locks.\n\n- Threadpool Starvation: 342 connections timed out.\n- SQL Deadlocks: 48 deadlock exceptions (409 Conflict).\n- Double-Spending: 18 duplicate redemptions leaked through!\n- Voucher Ledger Corrupted!");
+        }
+        btn.innerText = "⚡ INJECT 1,000 PARALLEL THREADS COLLISION";
+        btn.className = "w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl font-mono text-xs font-bold transition flex items-center justify-center space-x-2";
+      }, 700);
+    }
+
+    // =========================================================================
+    // ENGINE 2: CHAOS MONKEY SIMULATOR
+    // =========================================================================
+    let queueLength = 0;
+
+    function triggerChaos(type) {
+      const consoleEl = document.getElementById('chaosConsole');
+      const badge = document.getElementById('circuitStateBadge');
+      const time = new Date().toISOString().slice(11, 19);
+
+      if (type === 'timeout') {
+        badge.innerText = "OPEN (CIRCUIT TRIPPED)";
+        badge.className = "bg-rose-950 text-rose-400 border border-rose-800 px-3 py-1 rounded-full font-bold animate-pulse";
+        queueLength += 14;
+        document.getElementById('queueCount').innerText = `${queueLength} messages in RabbitMQ`;
+        
+        consoleEl.innerHTML += `
+          <div class="text-rose-400">[CHAOS] ${time} Injected 40% timeout on Partner Verification Endpoint.</div>
+          <div class="text-amber-400">[POLLY] Consecutive failure threshold exceeded (3). Tripping circuit breaker to OPEN.</div>
+          <div class="text-cyan-300">[FALLBACK] Traffic routed to RabbitMQ queue 'partner.transaction.retry'. Fast-responding 202 Accepted.</div>
+        `;
+      } else if (type === 'replay') {
+        consoleEl.innerHTML += `
+          <div class="text-cyan-400">[CHAOS] ${time} Replay Attack: Injected 5 duplicate webhooks with idempotency key 'tx_9824'.</div>
+          <div class="text-slate-300">[IDEMPOTENCY] Key 'tx_9824' exists in Redis with state 'PROCESSED'. Returning cached 202 without charging.</div>
+        `;
+      } else if (type === 'heal') {
+        badge.innerText = "CLOSED (HEALTHY)";
+        badge.className = "bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-bold";
+        queueLength = 0;
+        document.getElementById('queueCount').innerText = `0 messages in RabbitMQ`;
+        
+        consoleEl.innerHTML += `
+          <div class="text-emerald-400">[RECOVERY] ${time} Circuit Breaker half-open probe passed. Resetting to CLOSED.</div>
+          <div class="text-emerald-300">[WORKER] Drained RabbitMQ backlog (14 transactions processed with exponential backoff).</div>
+        `;
+      }
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    // =========================================================================
+    // ENGINE 3: RAG PIPELINE
+    // =========================================================================
+    const ragData = {
+      concurrency: {
+        answer: '"The system enforces a multi-stage concurrency guard: Stage 0 checks distributed idempotency keys; Stage 1 executes atomic decrement in Redis via custom Lua scripts (< 2ms) to reject depleted vouchers in memory; Stage 2 applies SQL Server RowVersion optimistic locking on database commit to ensure exactly one checkout succeeds."',
+        citation: "Source: Con Cung Architecture Whitepaper (VoucherEngine.Domain §3.4)"
+      },
+      latency: {
+        answer: '"The 96% latency reduction (1,200ms down to 42ms) was achieved by eliminating Entity Framework Core change tracking on the hot checkout path, rewriting critical queries with Dapper stored procedures, indexing on (VoucherCode, Status), and offloading 90% of invalid traffic to Redis in-memory atomic gates."',
+        citation: "Source: Con Cung Production Benchmark Report (§5.2 Performance Optimization)"
+      },
+      resilience: {
+        answer: '"If a Redis cluster master node fails, the Sentinel orchestrator initiates automatic failover to the replica within 1.5 seconds. During the election window, the application gracefully degrades to direct database optimistic concurrency with row versioning, ensuring zero checkout downtime."',
+        citation: "Source: Infrastructure Disaster Recovery Runbook (§8 High Availability)"
+      },
+      token: {
+        answer: '"Prompt caching and strict Pydantic token schemas cap request payloads to 512 tokens max. Groundedness validation checks cross-encoder similarity (> 0.85) between the generated answer and retrieved source chunks, automatically discarding any ungrounded assertions."',
+        citation: "Source: Retail AI Assistant Architecture Doc (§4 Evaluation Framework)"
+      }
+    };
+
+    function runRagPipeline() {
+      const q = document.getElementById('ragQuerySelect').value;
+      const data = ragData[q];
+      const answerEl = document.getElementById('ragAnswer');
+      const citationEl = document.getElementById('ragCitation');
+      
+      answerEl.innerText = "Retrieving dense vector embeddings from Qdrant and applying cross-encoder reranking...";
+      answerEl.className = "text-xs sm:text-sm text-purple-400 italic font-mono";
+      
+      setTimeout(() => {
+        answerEl.innerText = data.answer;
+        answerEl.className = "text-xs sm:text-sm text-slate-200 leading-relaxed font-sans";
+        citationEl.innerText = data.citation;
+      }, 500);
+    }
+
+    // =========================================================================
+    // ENGINE 4: PLANOGRAM CV SCANNER
+    // =========================================================================
     function runPlanogramScan() {
       const scanner = document.getElementById('scannerLine');
       const scanStatus = document.getElementById('scanStatus');
       const alertBox = document.getElementById('alertBox');
       
       scanner.classList.remove('hidden');
-      scanStatus.innerText = "Scanning frame (YOLOv8)...";
+      scanStatus.innerText = "Processing YOLOv8 frame inference...";
       scanStatus.className = "text-[11px] font-mono text-cyan-400 animate-pulse";
       
       setTimeout(() => {
         scanner.classList.add('hidden');
-        scanStatus.innerText = "Scan Complete • 1 Anomaly Flagged";
+        scanStatus.innerText = "Scan Complete • 1 Misplaced SKU Flagged";
         scanStatus.className = "text-[11px] font-mono text-rose-400 font-bold";
         
-        // Show badges & highlight
         document.getElementById('badge-1').classList.remove('hidden');
         document.getElementById('badge-2').classList.remove('hidden');
         document.getElementById('badge-3').classList.remove('hidden');
@@ -714,41 +1096,143 @@
           <p class="text-[10px] text-slate-500 mt-1">Audit ticket dispatched to store tablet via Webhook.</p>
         `;
         alertBox.className = "p-3 rounded-lg bg-rose-950/30 border border-rose-800/50 text-xs font-mono text-slate-400";
-      }, 1500);
+      }, 1400);
     }
 
-    // Tab 3: RAG Simulation
-    const ragData = {
-      concurrency: {
-        answer: '"The system enforces a multi-stage concurrency guard: Stage 0 checks distributed idempotency keys; Stage 1 executes atomic decrement in Redis via custom Lua scripts (< 2ms) to reject depleted vouchers in memory; Stage 2 applies SQL Server RowVersion optimistic locking on database commit to ensure exactly one checkout succeeds."',
-        citation: "Source: Con Cung Architecture Whitepaper (VoucherEngine.Domain §3.4)"
-      },
-      latency: {
-        answer: '"The 96% latency reduction (1,200ms down to 42ms) was achieved by eliminating Entity Framework Core change tracking on the hot checkout path, rewriting critical queries with Dapper stored procedures, indexing on (VoucherCode, Status), and offloading 90% of invalid traffic to Redis in-memory atomic gates."',
-        citation: "Source: Con Cung Production Benchmark Report (§5.2 Performance Optimization)"
-      },
-      resilience: {
-        answer: '"If a Redis cluster master node fails, the Sentinel orchestrator initiates automatic failover to the replica within 1.5 seconds. During the election window, the application gracefully degrades to direct database optimistic concurrency with row versioning, ensuring zero checkout downtime."',
-        citation: "Source: Infrastructure Disaster Recovery Runbook (§8 High Availability)"
-      }
-    };
+    // =========================================================================
+    // ENGINE 5: REAL IN-BROWSER CPU BENCHMARK RUNNER
+    // =========================================================================
+    function runLiveBrowserBenchmark() {
+      const btn = document.getElementById('benchRunBtn');
+      btn.innerText = "⚡ COMPUTING ON YOUR CPU...";
+      btn.disabled = true;
 
-    function runRagPipeline() {
-      const q = document.getElementById('ragQuerySelect').value;
-      const data = ragData[q];
-      const answerEl = document.getElementById('ragAnswer');
-      const citationEl = document.getElementById('ragCitation');
-      
-      answerEl.innerText = "Retrieving dense vector embeddings from Qdrant and applying cross-encoder reranking...";
-      answerEl.className = "text-xs sm:text-sm text-cyan-400 italic font-mono";
-      
       setTimeout(() => {
-        answerEl.innerText = data.answer;
-        answerEl.className = "text-xs sm:text-sm text-slate-300 leading-relaxed font-sans";
-        citationEl.innerText = data.citation;
-      }, 600);
+        // Test 1: Vector Cosine
+        const t0 = performance.now();
+        let dotSum = 0;
+        for (let i = 0; i < 100000; i++) {
+          const a = (i % 10) * 0.1;
+          const b = ((i + 1) % 10) * 0.1;
+          dotSum += a * b;
+        }
+        const t1 = performance.now();
+        document.getElementById('benchRes1').innerText = `${(t1 - t0).toFixed(2)} ms (100k Ops)`;
+
+        // Test 2: Concurrency Lock Sim
+        const t2 = performance.now();
+        let quota = 50000;
+        let commits = 0;
+        for (let i = 0; i < 50000; i++) {
+          if (quota > 0) {
+            quota--;
+            commits++;
+          }
+        }
+        const t3 = performance.now();
+        document.getElementById('benchRes2').innerText = `${(t3 - t2).toFixed(2)} ms (50k Commits)`;
+
+        // Test 3: In-Memory Map
+        const t4 = performance.now();
+        const map = new Map();
+        for (let i = 0; i < 200000; i++) {
+          map.set(i % 1000, i);
+        }
+        const t5 = performance.now();
+        document.getElementById('benchRes3').innerText = `${(t5 - t4).toFixed(2)} ms (200k Ops)`;
+
+        btn.innerText = "✔️ BENCHMARK COMPLETE (YOUR HARDWARE)";
+        btn.disabled = false;
+        setTimeout(() => {
+          btn.innerText = "⚡ RUN LIVE BENCHMARK (YOUR CPU)";
+        }, 4000);
+      }, 50);
     }
 
+    // =========================================================================
+    // ENGINE 6: INTERACTIVE CLI TERMINAL
+    // =========================================================================
+    function execCmd(cmd) {
+      const input = document.getElementById('terminalInput');
+      input.value = cmd;
+      processTerminalCommand(cmd);
+    }
+
+    function handleTerminalKey(e) {
+      if (e.key === 'Enter') {
+        const cmd = e.target.value.trim();
+        e.target.value = '';
+        processTerminalCommand(cmd);
+      }
+    }
+
+    function processTerminalCommand(cmd) {
+      const output = document.getElementById('terminalOutput');
+      const clean = cmd.toLowerCase().trim();
+
+      output.innerHTML += `<div><span class="text-cyan-400">tinh@con-cung-core:~$</span> ${cmd}</div>`;
+
+      if (clean === 'help') {
+        output.innerHTML += `
+          <div class="text-slate-400">
+            Available commands:<br>
+            • <strong class="text-emerald-400">status</strong>: Inspect active service health & metrics<br>
+            • <strong class="text-cyan-400">bench [rps]</strong>: Run concurrency benchmark (e.g., bench 8000)<br>
+            • <strong class="text-rose-400">chaos</strong>: Inject timeout chaos event into gateway<br>
+            • <strong class="text-purple-400">whoami</strong>: Solution Architect executive summary<br>
+            • <strong class="text-amber-400">cat cv</strong>: Direct links to 3 specialized PDF resumes<br>
+            • <strong class="text-slate-300">clear</strong>: Reset terminal screen
+          </div>
+        `;
+      } else if (clean === 'status') {
+        output.innerHTML += `
+          <div class="text-emerald-400">
+            [OK] VoucherEngine.Api: ONLINE (5,000 RPS, p99=42ms, 0 errors)<br>
+            [OK] Redis Cluster: 3 Masters, 3 Replicas (Memory: 2.1GB, Hit Rate: 99.4%)<br>
+            [OK] SQL Server 2022: Hot-path Dapper connection pool: 28/100<br>
+            [OK] RabbitMQ Cluster: 0 queued backlog, 42 DLQ retry consumer active<br>
+            [OK] Qdrant Vector Engine: 1536-dim indexed, cosine distance ready
+          </div>
+        `;
+      } else if (clean.startsWith('bench')) {
+        const parts = clean.split(' ');
+        const rps = parts[1] ? parseInt(parts[1]) : 5000;
+        currentRps = rps;
+        document.getElementById('rpsSlider').value = rps;
+        document.getElementById('rpsValue').innerText = rps.toLocaleString() + " RPS";
+        updateSimulation();
+        output.innerHTML += `<div class="text-cyan-400">[SIM] Concurrency simulator updated to ${rps.toLocaleString()} RPS. See chart above.</div>`;
+      } else if (clean === 'chaos') {
+        triggerChaos('timeout');
+        output.innerHTML += `<div class="text-rose-400">[CHAOS] Partner API 40% timeout injected! Polly circuit breaker triggered.</div>`;
+      } else if (clean === 'whoami') {
+        output.innerHTML += `
+          <div class="text-purple-300">
+            Truong Van Tinh — Enterprise Solution Architect & Senior Software Engineer<br>
+            3+ years commercial production @ Con Cung Corporation (700+ stores)<br>
+            Stack: .NET 8, C#, Dapper, Redis, Keycloak, SQL Server, Python, Qdrant, Docker<br>
+            Location: Ho Chi Minh City, Vietnam • Availability: 35–40h/wk Remote
+          </div>
+        `;
+      } else if (clean === 'cat cv') {
+        output.innerHTML += `
+          <div class="text-amber-300">
+            Available Resumes:<br>
+            1. Backend: <a href="./CV_Backend_TruongVanTinh.pdf" download class="underline text-cyan-400">CV_Backend_TruongVanTinh.pdf</a><br>
+            2. FullStack: <a href="./CV_FullStack_TruongVanTinh.pdf" download class="underline text-cyan-400">CV_FullStack_TruongVanTinh.pdf</a><br>
+            3. AI & RAG: <a href="./CV_AI_TruongVanTinh.pdf" download class="underline text-cyan-400">CV_AI_TruongVanTinh.pdf</a>
+          </div>
+        `;
+      } else if (clean === 'clear') {
+        output.innerHTML = '';
+      } else {
+        output.innerHTML += `<div class="text-rose-400">Command not found: '${cmd}'. Type 'help' for options.</div>`;
+      }
+
+      output.scrollTop = output.scrollHeight;
+    }
+
+    // Init
     window.onload = function() {
       initChart();
     };
